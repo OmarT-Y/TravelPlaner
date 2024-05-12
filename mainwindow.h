@@ -7,6 +7,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
+#include "flight_search.h"
+#include <vector>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -22,7 +24,7 @@ public:
     ~MainWindow();
     void reqData();
     void amadeusAuthKey();
-    void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate );
+    void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate, QString currency,QString amount  );
 private slots:
     void on_pushButton_clicked();
 
@@ -31,5 +33,6 @@ private:
     QNetworkAccessManager manager;
     QNetworkReply *reply = nullptr;
     QString amadeusKey;
+    std::vector <flight_offer> flight_offers;
 };
 #endif // MAINWINDOW_H

@@ -13,6 +13,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    flight_search.h \
     mainwindow.h
 
 FORMS += \
