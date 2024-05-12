@@ -25,6 +25,7 @@ public:
     void reqData();
     void amadeusAuthKey();
     void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate, QString currency,QString amount  );
+    QString getAirline(QString code);
 private slots:
     void on_pushButton_clicked();
 

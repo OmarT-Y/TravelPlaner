@@ -37,7 +37,27 @@ void MainWindow::amadeusAuthKey()
     QJsonObject jsonObj = jsonDoc.object();
     amadeusKey = jsonObj["access_token"].toString();
 }
+QString MainWindow::getAirline(QString code)
+{
+    QString baseurl = "https://test.api.amadeus.com/v1/reference-data/airlines";
+    QUrl url(baseurl);
+    QUrlQuery query;
+    query.addQueryItem("airlineCodes",code.toUtf8());
+    url.setQuery(query);
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
+    request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
+    reply = manager.get(request);
+    // Busy wait until the reply is ready
+    while (!reply->isFinished()) {
+        qApp->processEvents(); // Process events to prevent GUI freeze
+    }
+    QByteArray data = reply->readAll();
+    QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
+    QJsonArray data_array = jsonDocument["data"].toArray();
+    return data_array[0].toObject()["businessName"].toString();
 
+}
 void MainWindow::flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate , int adults , int children=-1,QString returnDate="", QString currency="",QString amount ="")
 {
     //TODO : MAX PRICE OF FLIGHT
@@ -90,6 +110,8 @@ void MainWindow::flight_offer_search_API(QString originLocationCode , QString de
         current_offer.numberOfSeatsLeft=entry["numberOfBookableSeats"].toInt();
         current_offer.price=(entry["price"].toObject())["grandTotal"].toString();
         QJsonArray iti =entry["itineraries"].toArray();
+        current_offer.airline=(iti[0].toObject())["segments"].toArray()[0].toObject()["carrierCode"].toString();
+        current_offer.airline=getAirline(current_offer.airline);
         current_offer.flights.first.duration=(iti[0].toObject())["duration"].toString();
         current_offer.flights.first.numberOfStops=(iti[0].toObject())["segments"].toArray().size()-1;
         current_offer.flights.first.departureDateTime=(((iti[0].toObject())["segments"].toArray())[0].toObject())["departure"].toObject()["at"].toString();

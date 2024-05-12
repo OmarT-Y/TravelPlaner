@@ -15,6 +15,7 @@ class flight_offer
 public:
     bool oneWay;
     int numberOfSeatsLeft;
+    QString airline;
     QString flightSource;
     QString lastingTickitingDate;
     QString price;
