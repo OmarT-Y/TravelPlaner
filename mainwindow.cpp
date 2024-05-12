@@ -10,6 +10,30 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    amadeusAuthKey();
+}
+void MainWindow::amadeusAuthKey()
+{
+    //get the key
+    QString baseAuthURL = "https://test.api.amadeus.com/v1/security/oauth2/token";
+    QUrl authURL(baseAuthURL);
+    QUrlQuery authQuery;
+    authQuery.addQueryItem("grant_type","client_credentials");
+    authQuery.addQueryItem("client_id","i3kRQQ1tKfM9183Fvi50bE3w3wNFhlRK");
+    authQuery.addQueryItem("client_secret","meZFXqwOahv9JtsX");
+    //authURL.setQuery(authQuery);
+
+    QNetworkRequest authReq(authURL);
+    authReq.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    reply = manager.post(authReq,authQuery.toString(QUrl::FullyEncoded).toUtf8());
+    // Busy wait until the reply is ready
+    while (!reply->isFinished()) {
+        qApp->processEvents(); // Process events to prevent GUI freeze
+    }
+    QByteArray dataAuth = reply->readAll();
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(dataAuth);
+    QJsonObject jsonObj = jsonDoc.object();
+    amadeusKey = jsonObj["access_token"].toString();
 }
 void MainWindow::reqData()
 {
@@ -26,7 +50,8 @@ void MainWindow::reqData()
 
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader("Authorization", "Bearer i3kRQQ1tKfM9183Fvi50bE3w3wNFhlRK");
+
+    request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
 
     reply = manager.get(request);
 
@@ -36,8 +61,6 @@ void MainWindow::reqData()
     }
 
     QByteArray data = reply->readAll();
-    QJsonDocument json = QJsonDocument::fromJson(data);
-    QJsonObject data_ = json["data"].toObject();
 }
 MainWindow::~MainWindow()
 {

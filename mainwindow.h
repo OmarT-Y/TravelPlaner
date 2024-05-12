@@ -21,11 +21,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void reqData();
-
+    void amadeusAuthKey();
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QNetworkAccessManager manager;
+    QNetworkReply *reply = nullptr;
+    QString amadeusKey;
 };
 #endif // MAINWINDOW_H
