@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
+#include "cityinfo.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,7 @@ public:
     ~MainWindow();
     void reqData();
     void amadeusAuthKey();
+    void City_Search_API(QString searchKey);
 private slots:
     void on_pushButton_clicked();
 
@@ -30,5 +32,8 @@ private:
     QNetworkAccessManager manager;
     QNetworkReply *reply = nullptr;
     QString amadeusKey;
+    std::pair<QString,QString> originCity;
+    std::pair<QString,QString> destCity;
+    std::vector<CityInfo> citySearchRes;
 };
 #endif // MAINWINDOW_H

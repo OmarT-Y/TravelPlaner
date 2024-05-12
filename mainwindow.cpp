@@ -2,15 +2,18 @@
 #include "ui_mainwindow.h"
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
+#include "cityinfo.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     amadeusAuthKey();
+
 }
 void MainWindow::amadeusAuthKey()
 {
@@ -34,6 +37,34 @@ void MainWindow::amadeusAuthKey()
     QJsonDocument jsonDoc = QJsonDocument::fromJson(dataAuth);
     QJsonObject jsonObj = jsonDoc.object();
     amadeusKey = jsonObj["access_token"].toString();
+}
+void MainWindow::City_Search_API(QString searchKey)
+{
+    QString baseurl = "https://test.api.amadeus.com/v1/reference-data/locations/cities";
+    QUrl url(baseurl);
+    QUrlQuery query;
+    query.addQueryItem("keyword",searchKey.toUtf8());
+    query.addQueryItem("max","15");
+    url.setQuery(query);
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
+
+    reply = manager.get(request);
+
+    // Busy wait until the reply is ready
+    while (!reply->isFinished()) {
+        qApp->processEvents(); // Process events to prevent GUI freeze
+    }
+    QByteArray replyData = reply->readAll();
+    QJsonDocument resDoc = QJsonDocument::fromJson(replyData);
+    QJsonArray data = resDoc["data"].toArray();
+    for(const auto &result : data)
+    {
+        QJsonObject entry = result.toObject();
+        citySearchRes.push_back(CityInfo(entry["name"].toString(),entry["iataCode"].toString(),entry["address"].toObject()["countryCode"].toString()));
+    }
 }
 void MainWindow::reqData()
 {
@@ -60,7 +91,7 @@ void MainWindow::reqData()
         qApp->processEvents(); // Process events to prevent GUI freeze
     }
 
-    QByteArray data = reply->readAll();
+
 }
 MainWindow::~MainWindow()
 {
@@ -69,6 +100,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    this->reqData();
+    this->City_Search_API("cai");
 }
 
