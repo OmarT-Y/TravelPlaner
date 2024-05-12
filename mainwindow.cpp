@@ -25,7 +25,6 @@ void MainWindow::amadeusAuthKey()
     authQuery.addQueryItem("client_id","i3kRQQ1tKfM9183Fvi50bE3w3wNFhlRK");
     authQuery.addQueryItem("client_secret","meZFXqwOahv9JtsX");
     //authURL.setQuery(authQuery);
-
     QNetworkRequest authReq(authURL);
     authReq.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     reply = manager.post(authReq,authQuery.toString(QUrl::FullyEncoded).toUtf8());
