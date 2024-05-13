@@ -13,6 +13,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    activities_tours.h \
+    flight_search.h \
     mainwindow.h
 
 FORMS += \
