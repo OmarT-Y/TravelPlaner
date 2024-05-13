@@ -288,6 +288,39 @@ void MainWindow::getCityInfo(CityInfo city)
        CityFullinfo.second_language_name=jsonDocument["languages"].toArray()[1].toObject()["name"].toString();
     }
 }
+
+// void MainWindow::getHotelExtraInfo(int number_of_rooms , QString price_low,QString price_high ,QString currency)
+// {
+//     QString baseurl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
+//     QUrl url(baseurl);
+//     QUrlQuery query;
+
+//     QString hotelListString="";
+//     for(int i=1;i<cityHotelRes.size();i++)
+//     {
+//         hotelListString+=cityHotelRes[i].h_ID;
+//         hotelListString+=',';
+//     }
+//     hotelListString.removeLast();
+
+//     query.addQueryItem("hotelIds",hotelListString.toUtf8());
+//     query.addQueryItem("roomQuantity" , QString::number(number_of_rooms).toUtf8());
+//     QString price_range=price_low+'-'+price_high;
+//     query.addQueryItem("priceRange",price_range.toUtf8());
+//     query.addQueryItem("currency",currency.toUtf8());
+//     url.setQuery(query);
+
+//     QNetworkRequest request(url);
+//     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
+//     request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
+//     reply = manager.get(request);
+
+//     // Busy wait until the reply is ready
+//     while (!reply->isFinished()) {
+//         qApp->processEvents(); // Process events to prevent GUI freeze
+//     }
+//     QByteArray data = reply->readAll();
+// }
 /*end Ziad Mohamed*/
 MainWindow::~MainWindow()
 {
@@ -298,6 +331,7 @@ void MainWindow::on_pushButton_clicked()
 {
     CityInfo city;
     city.countryCode="EG";
-    this->getCityInfo(city);
+    this->Hotel_List("CAI",7, 4);
+   // this->getHotelExtraInfo(1,"100","10000","EGP");
 }
 

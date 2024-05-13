@@ -11,4 +11,16 @@ public:
     HotelInfo(QString name, QString id);
 };
 
+// class HotelInfoAll  : public HotelInfo
+// {
+// public:
+//     QString bedtype;
+//     int number_of_beds;
+//     QString hotel_description;
+//     QString price;
+//     QString payment_type;
+//     QString currency_type;
+//     QString room_category;
+//     QString rate_code;
+// };
 #endif // HOTELSEARCH_H

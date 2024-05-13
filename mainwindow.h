@@ -33,11 +33,12 @@ public:
     void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate, QString currency,QString amount  );
     void get_Tours_Activities(QString latitude , QString longitude );
     QString getAirline(QString code);
+
     /*Omar Tamer*/
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
     void getCityInfo(CityInfo city);
-
+//void getHotelExtraInfo( int number_of_rooms , QString price_low,QString price_high ,QString currency);
     /*end Ziad Mohamed*/
 private slots:
     void on_pushButton_clicked();
@@ -58,6 +59,7 @@ private:
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
     CityInfoAll CityFullinfo;
+    // std::vector<HotelInfoAll> HotelsFullInfo;
     /*end Ziad Mohamed*/
 };
 #endif // MAINWINDOW_H
