@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     amadeusAuthKey();
-
 }
 
 void MainWindow::amadeusAuthKey()
@@ -252,7 +251,76 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
 }
 /*Omar Tamer*/
 /*end Omar Tamer*/
+
+
 /*Ziad Mohamed*/
+void MainWindow::getCityInfo(CityInfo city)
+{
+    CityFullinfo.countryCode=city.countryCode;
+    CityFullinfo.cityCode=city.cityCode;
+    CityFullinfo.cityName=city.cityName;
+    CityFullinfo.lat=city.lat;
+    CityFullinfo.lon= city.lon;
+    QString baseurl = "https://restcountries.com/v2/alpha/";
+    baseurl+=city.countryCode;
+    QUrl url(baseurl);
+
+    QNetworkRequest request(url);
+    reply = manager.get(request);
+
+    // Busy wait until the reply is ready
+    while (!reply->isFinished()) {
+        qApp->processEvents(); // Process events to prevent GUI freeze
+    }
+    QByteArray data = reply->readAll();
+    QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
+    //QJsonArray data_array = jsonDocument["data"].toArray();
+    CityFullinfo.country_name=jsonDocument["name"].toString();
+    CityFullinfo.region=jsonDocument["region"].toString();
+    CityFullinfo.time_zone=jsonDocument["timezones"].toArray()[0].toString();
+    CityFullinfo.flag_pic=jsonDocument["flags"].toObject()["png"].toString();
+    CityFullinfo.currency_code=jsonDocument["currencies"].toArray()[0].toObject()["code"].toString();
+    CityFullinfo.currency_name=jsonDocument["currencies"].toArray()[0].toObject()["name"].toString();
+    CityFullinfo.currency_symbol=jsonDocument["currencies"].toArray()[0].toObject()["symbol"].toString();
+    CityFullinfo.first_language_name=jsonDocument["languages"].toArray()[0].toObject()["name"].toString();
+    if(jsonDocument["languages"].toArray().size()>1)
+    {
+       CityFullinfo.second_language_name=jsonDocument["languages"].toArray()[1].toObject()["name"].toString();
+    }
+}
+
+// void MainWindow::getHotelExtraInfo(int number_of_rooms , QString price_low,QString price_high ,QString currency)
+// {
+//     QString baseurl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
+//     QUrl url(baseurl);
+//     QUrlQuery query;
+
+//     QString hotelListString="";
+//     for(int i=1;i<cityHotelRes.size();i++)
+//     {
+//         hotelListString+=cityHotelRes[i].h_ID;
+//         hotelListString+=',';
+//     }
+//     hotelListString.removeLast();
+
+//     query.addQueryItem("hotelIds",hotelListString.toUtf8());
+//     query.addQueryItem("roomQuantity" , QString::number(number_of_rooms).toUtf8());
+//     QString price_range=price_low+'-'+price_high;
+//     query.addQueryItem("priceRange",price_range.toUtf8());
+//     query.addQueryItem("currency",currency.toUtf8());
+//     url.setQuery(query);
+
+//     QNetworkRequest request(url);
+//     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
+//     request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
+//     reply = manager.get(request);
+
+//     // Busy wait until the reply is ready
+//     while (!reply->isFinished()) {
+//         qApp->processEvents(); // Process events to prevent GUI freeze
+//     }
+//     QByteArray data = reply->readAll();
+// }
 /*end Ziad Mohamed*/
 MainWindow::~MainWindow()
 {
@@ -261,6 +329,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    this->Hotel_List("CAI",1<<25,0);
+    CityInfo city;
+    city.countryCode="EG";
+    this->Hotel_List("CAI",7, 4);
+   // this->getHotelExtraInfo(1,"100","10000","EGP");
 }
 
