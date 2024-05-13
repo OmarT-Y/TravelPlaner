@@ -36,6 +36,8 @@ public:
     /*Omar Tamer*/
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
+    void getCityInfo(CityInfo city);
+
     /*end Ziad Mohamed*/
 private slots:
     void on_pushButton_clicked();
@@ -55,7 +57,7 @@ private:
 
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
-
+    CityInfoAll CityFullinfo;
     /*end Ziad Mohamed*/
 };
 #endif // MAINWINDOW_H
