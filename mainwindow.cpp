@@ -7,6 +7,7 @@
 #include <QJsonObject>
 #include <QUrlQuery>
 #include "cityinfo.h"
+#include "hotelsearch.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -63,22 +64,34 @@ void MainWindow::City_Search_API(QString searchKey)
     for(const auto &result : data)
     {
         QJsonObject entry = result.toObject();
-        citySearchRes.push_back(CityInfo(entry["name"].toString(),entry["iataCode"].toString(),entry["address"].toObject()["countryCode"].toString()));
+        QString lon = ((entry["geoCode"].toObject())["longitude"]).toString();
+        QString lat = ((entry["geoCode"].toObject())["latitude"]).toString();
+        citySearchRes.push_back(CityInfo(entry["name"].toString(),entry["iataCode"].toString(),entry["address"].toObject()["countryCode"].toString(),lon,lat));
     }
 }
-void MainWindow::reqData()
+void MainWindow::Hotel_List(QString cityCode,uint32_t am_flag, int min_rating)
 {
     QString baseurl = "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city";
-    QNetworkAccessManager manager;
-    QNetworkReply *reply = nullptr;
     QUrl url(baseurl);
     QUrlQuery query;
-    query.addQueryItem("cityCode","CAI");
-    query.addQueryItem("radius","15");
-    query.addQueryItem("amenities","SWIMMING_POOL,SPA,TENNIS");
-    query.addQueryItem("hotelSource","ALL");
-    url.setQuery(query);
 
+    query.addQueryItem("cityCode",cityCode.toUtf8());
+    QString amenities = amenitiesToQString(am_flag);
+    query.addQueryItem("amenities", QUrl::toPercentEncoding(amenities));
+    query.addQueryItem("radius","15");
+    if(min_rating > 1 )
+    {
+        QString rating = "";
+        for(int i= min_rating;i<5;i++)
+        {
+            rating += QString::number(i);
+            rating +=",";
+        }
+        rating.removeLast();
+
+        query.addQueryItem("ratings",rating.toUtf8());
+    }
+    url.setQuery(query);
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
@@ -90,8 +103,16 @@ void MainWindow::reqData()
     while (!reply->isFinished()) {
         qApp->processEvents(); // Process events to prevent GUI freeze
     }
+    QByteArray replyData = reply->readAll();
+    QJsonDocument resDoc = QJsonDocument::fromJson(replyData);
+    QJsonArray data = resDoc["data"].toArray();
 
-
+    //let the parsing begin
+    for(const auto& entry:data)
+    {
+        QJsonObject hotel = entry.toObject();
+        cityHotelRes.push_back(HotelInfo(hotel["name"].toString(),hotel["hotelId"].toString()));
+    }
 }
 MainWindow::~MainWindow()
 {
@@ -100,6 +121,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    this->City_Search_API("cai");
+    this->Hotel_List("CAI",1<<25,0);
 }
 

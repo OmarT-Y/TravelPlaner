@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QUrlQuery>
 #include "cityinfo.h"
+#include "hotelsearch.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -21,9 +22,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void reqData();
     void amadeusAuthKey();
     void City_Search_API(QString searchKey);
+    void Hotel_List(QString cityCode,uint32_t am_flag, int min_rating);
 private slots:
     void on_pushButton_clicked();
 
@@ -35,5 +36,6 @@ private:
     std::pair<QString,QString> originCity;
     std::pair<QString,QString> destCity;
     std::vector<CityInfo> citySearchRes;
+    std::vector<HotelInfo> cityHotelRes;
 };
 #endif // MAINWINDOW_H

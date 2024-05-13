@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     cityinfo.cpp \
+    hotelsearch.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     cityinfo.h \
+    hotelsearch.h \
     mainwindow.h
 
 FORMS += \

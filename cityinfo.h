@@ -8,7 +8,9 @@ public:
     QString cityName;
     QString cityCode;
     QString countryCode;
-    CityInfo(QString,QString,QString);
+    QString lon;
+    QString lat;
+    CityInfo(QString name,QString code,QString country,QString lon,QString Lat);
 };
 
 #endif // CITYINFO_H
