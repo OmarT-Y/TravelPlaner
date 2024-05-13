@@ -17,6 +17,8 @@ SOURCES += \
 HEADERS += \
     cityinfo.h \
     hotelsearch.h \
+    activities_tours.h \
+    flight_search.h \
     mainwindow.h
 
 FORMS += \
