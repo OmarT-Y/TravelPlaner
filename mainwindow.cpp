@@ -229,9 +229,6 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
     while (!reply->isFinished()) {
         qApp->processEvents(); // Process events to prevent GUI freeze
     }
-    QByteArray replyData = reply->readAll();
-    QJsonDocument resDoc = QJsonDocument::fromJson(replyData);
-    QJsonArray data = resDoc["data"].toArray();
     QByteArray data = reply->readAll();
     QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
     QJsonArray data_array = jsonDocument["data"].toArray();
@@ -253,7 +250,10 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
         activities.push_back(current_activity);
     }
 }
-
+/*Omar Tamer*/
+/*end Omar Tamer*/
+/*Ziad Mohamed*/
+/*end Ziad Mohamed*/
 MainWindow::~MainWindow()
 {
     delete ui;

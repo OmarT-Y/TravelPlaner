@@ -33,6 +33,10 @@ public:
     void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate, QString currency,QString amount  );
     void get_Tours_Activities(QString latitude , QString longitude );
     QString getAirline(QString code);
+    /*Omar Tamer*/
+    /*end Omar Tamer*/
+    /*Ziad Mohamed*/
+    /*end Ziad Mohamed*/
 private slots:
     void on_pushButton_clicked();
 
@@ -41,12 +45,17 @@ private:
     QNetworkAccessManager manager;
     QNetworkReply *reply = nullptr;
     QString amadeusKey;
-<
     std::pair<QString,QString> originCity;
     std::pair<QString,QString> destCity;
     std::vector<CityInfo> citySearchRes;
     std::vector<HotelInfo> cityHotelRes;
     std::vector <flight_offer> flight_offers;
     std::vector <activity> activities;
+    /*Omar Tamer*/
+
+    /*end Omar Tamer*/
+    /*Ziad Mohamed*/
+
+    /*end Ziad Mohamed*/
 };
 #endif // MAINWINDOW_H
