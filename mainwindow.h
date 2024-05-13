@@ -7,9 +7,13 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
+
+#include "cityinfo.h"
+#include "hotelsearch.h"
+
 #include "flight_search.h"
 #include "activities_tours.h"
-#include <vector>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -24,6 +28,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void amadeusAuthKey();
+    void City_Search_API(QString searchKey);
+    void Hotel_List(QString cityCode,uint32_t am_flag, int min_rating);
     void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate, QString currency,QString amount  );
     void get_Tours_Activities(QString latitude , QString longitude );
     QString getAirline(QString code);
@@ -35,6 +41,11 @@ private:
     QNetworkAccessManager manager;
     QNetworkReply *reply = nullptr;
     QString amadeusKey;
+<
+    std::pair<QString,QString> originCity;
+    std::pair<QString,QString> destCity;
+    std::vector<CityInfo> citySearchRes;
+    std::vector<HotelInfo> cityHotelRes;
     std::vector <flight_offer> flight_offers;
     std::vector <activity> activities;
 };
