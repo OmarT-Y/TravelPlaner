@@ -37,6 +37,8 @@ void MainWindow::amadeusAuthKey()
     QJsonObject jsonObj = jsonDoc.object();
     amadeusKey = jsonObj["access_token"].toString();
 }
+
+
 QString MainWindow::getAirline(QString code)
 {
     QString baseurl = "https://test.api.amadeus.com/v1/reference-data/airlines";
@@ -129,24 +131,22 @@ void MainWindow::flight_offer_search_API(QString originLocationCode , QString de
         flight_offers.push_back(current_offer);
     }
 }
-void MainWindow::reqData()
+
+
+void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
 {
-    QString baseurl = "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city";
-    QNetworkAccessManager manager;
-    QNetworkReply *reply = nullptr;
+    QString baseurl = "https://test.api.amadeus.com/v1/shopping/activities";
     QUrl url(baseurl);
     QUrlQuery query;
-    query.addQueryItem("cityCode","CAI");
-    query.addQueryItem("radius","15");
-    query.addQueryItem("amenities","SWIMMING_POOL,SPA,TENNIS");
-    query.addQueryItem("hotelSource","ALL");
+    query.addQueryItem("latitude",latitude.toUtf8());
+    query.addQueryItem("longitude",longitude.toUtf8());
+    query.addQueryItem("radius" , QString::number(10).toUtf8());
+
     url.setQuery(query);
 
     QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
     request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
-
     reply = manager.get(request);
 
     // Busy wait until the reply is ready
@@ -155,9 +155,28 @@ void MainWindow::reqData()
     }
 
     QByteArray data = reply->readAll();
+    QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
+    QJsonArray data_array = jsonDocument["data"].toArray();
+    for(const auto &i : data_array)
+    {
+        QJsonObject entry = i.toObject();
+        activity current_activity ;
+        current_activity.name=entry["name"].toString();
+        current_activity.description=entry["description"].toString();
+        current_activity.booking_link=entry["bookingLink"].toString();
+        current_activity.duration_hours=entry["minimumDuration"].toString();
+        current_activity.currency=entry["price"].toObject()["currencyCode"].toString();
+        current_activity.price=entry["price"].toObject()["amount"].toString();
 
+        for (int j=0;j<entry["pictures"].toArray().size();j++)
+        {
+            current_activity.pictures.push_back(entry["pictures"].toArray()[j].toString());
+        }
 
+         activities.push_back(current_activity);
+    }
 }
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -165,6 +184,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    this->flight_offer_search_API("CAI" , "BKK" , "2024-05-20" ,   3, 1,"2024-05-24","EUR","800");
+    this->get_Tours_Activities("41.397158" , "2.160873");
 }
 
