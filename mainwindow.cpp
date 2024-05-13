@@ -173,7 +173,7 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
             current_activity.pictures.push_back(entry["pictures"].toArray()[j].toString());
         }
 
-         activities.push_back(current_activity);
+        activities.push_back(current_activity);
     }
 }
 
