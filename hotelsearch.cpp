@@ -21,10 +21,3 @@ QString amenitiesToQString(uint32_t am_flag)
     res = res.removeLast();
     return res;
 }
-HotelInfo::HotelInfo() {}
-
-HotelInfo::HotelInfo(QString name, QString id)
-{
-    h_name = name;
-    h_ID = id;
-}

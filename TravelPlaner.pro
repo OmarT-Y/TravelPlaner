@@ -12,14 +12,16 @@ SOURCES += \
     cityinfo.cpp \
     hotelsearch.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    travelinfo.cpp
 
 HEADERS += \
     cityinfo.h \
     hotelsearch.h \
     activities_tours.h \
     flight_search.h \
-    mainwindow.h
+    mainwindow.h \
+    travelinfo.h
 
 FORMS += \
     mainwindow.ui
@@ -28,3 +30,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc

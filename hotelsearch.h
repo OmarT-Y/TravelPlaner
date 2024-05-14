@@ -2,25 +2,21 @@
 #define HOTELSEARCH_H
 #include <QString>
 QString amenitiesToQString(uint32_t am_flag);
-class HotelInfo
+
+class HotelRoomOfferInfo
 {
 public:
-    HotelInfo();
-    QString h_name;
-    QString h_ID;
-    HotelInfo(QString name, QString id);
+    QString hotelName;
+    int numOf_rooms;
+    QString boardType;
+    QString roomCategory;
+    QString bedtype;
+    int numOf_beds;
+    QString offer_description;
+    QString currencyCode;
+    QString price;
+    QString taxPer;
+    QString taxAmount;
+    QString payment_type;
 };
-
-// class HotelInfoAll  : public HotelInfo
-// {
-// public:
-//     QString bedtype;
-//     int number_of_beds;
-//     QString hotel_description;
-//     QString price;
-//     QString payment_type;
-//     QString currency_type;
-//     QString room_category;
-//     QString rate_code;
-// };
 #endif // HOTELSEARCH_H

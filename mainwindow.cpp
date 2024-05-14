@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->travelInfoWidget = new TravelInfo();
+    this->ui->mainLayout->addWidget(travelInfoWidget);
     amadeusAuthKey();
 }
 
@@ -79,7 +81,7 @@ void MainWindow::Hotel_List(QString cityCode,uint32_t am_flag, int min_rating)
     query.addQueryItem("cityCode",cityCode.toUtf8());
     QString amenities = amenitiesToQString(am_flag);
     query.addQueryItem("amenities", QUrl::toPercentEncoding(amenities));
-    query.addQueryItem("radius","15");
+    query.addQueryItem("radius","20");
     if(min_rating > 1 )
     {
         QString rating = "";
@@ -112,7 +114,7 @@ void MainWindow::Hotel_List(QString cityCode,uint32_t am_flag, int min_rating)
     for(const auto& entry:data)
     {
         QJsonObject hotel = entry.toObject();
-        cityHotelRes.push_back(HotelInfo(hotel["name"].toString(),hotel["hotelId"].toString()));
+        cityHotelRes.push_back(hotel["hotelId"].toString());
     }
 }
 QString MainWindow::getAirline(QString code)
@@ -250,6 +252,59 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
     }
 }
 /*Omar Tamer*/
+QString MainWindow::getErrorMsgJson(QJsonDocument &doc)
+{
+    QJsonObject jsonData = doc.object();
+    if(jsonData.contains("title"))
+    {
+        return jsonData["title"].toString();
+    }
+    else if(jsonData.contains("errors"))
+    {
+        return (jsonData["errors"].toArray())[0].toString();
+    }
+    return "NoErr";
+}
+
+void MainWindow::Hotel_Search_API(int number_of_rooms ,QString checkIn,QString checkOut,QString currency,QString price_low,QString price_high)
+{
+    QString baseurl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
+    QUrl url(baseurl);
+    QUrlQuery query;
+    QString hotelListString="";
+    for(int i=1;i<cityHotelRes.size();i++)
+    {
+        hotelListString+=cityHotelRes[i];
+        hotelListString+=',';
+    }
+    hotelListString.removeLast();
+    query.addQueryItem("hotelIds",hotelListString.toUtf8());
+    query.addQueryItem("roomQuantity" , QString::number(number_of_rooms).toUtf8());
+    query.addQueryItem("checkInDate",checkIn.toUtf8());
+    query.addQueryItem("checkOutDate",checkOut.toUtf8());
+    query.addQueryItem("includeClosed","false");
+    query.addQueryItem("currency",currency.toUtf8());
+    QString price_range=price_low+'-'+price_high;
+    query.addQueryItem("priceRange",price_range.toUtf8());
+    url.setQuery(query);
+
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
+    request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
+    reply = manager.get(request);
+
+    // Busy wait until the reply is ready
+    while (!reply->isFinished()) {
+        qApp->processEvents(); // Process events to prevent GUI freeze
+    }
+    QByteArray replyData = reply->readAll();
+    QJsonDocument resDoc = QJsonDocument::fromJson(replyData);
+    QJsonArray data = resDoc["data"].toArray();
+    for(auto const& entry:data)
+    {
+        QJsonObject HotelOffer = entry.toObject();
+    }
+}
 /*end Omar Tamer*/
 
 

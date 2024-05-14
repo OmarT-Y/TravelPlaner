@@ -13,7 +13,7 @@
 
 #include "flight_search.h"
 #include "activities_tours.h"
-
+#include "travelinfo.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -35,6 +35,8 @@ public:
     QString getAirline(QString code);
 
     /*Omar Tamer*/
+    QString getErrorMsgJson(QJsonDocument &doc);
+    void Hotel_Search_API(int number_of_rooms ,QString checkIn,QString checkOut,QString currency,QString price_low,QString price_high);
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
     void getCityInfo(CityInfo city);
@@ -51,15 +53,15 @@ private:
     std::pair<QString,QString> originCity;
     std::pair<QString,QString> destCity;
     std::vector<CityInfo> citySearchRes;
-    std::vector<HotelInfo> cityHotelRes;
+    std::vector<QString> cityHotelRes;
     std::vector <flight_offer> flight_offers;
     std::vector <activity> activities;
     /*Omar Tamer*/
-
+    std::vector<HotelRoomOfferInfo> roomOffers;
+    TravelInfo* travelInfoWidget=nullptr;
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
     CityInfoAll CityFullinfo;
-    // std::vector<HotelInfoAll> HotelsFullInfo;
     /*end Ziad Mohamed*/
 };
 #endif // MAINWINDOW_H
