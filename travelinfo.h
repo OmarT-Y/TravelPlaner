@@ -11,6 +11,9 @@
 #include <QFormLayout>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QSpinBox>
+#include <QSpacerItem>
+#include <QPushButton>
 class TravelInfo : public QWidget
 {
     Q_OBJECT
@@ -27,6 +30,14 @@ private:
     QCheckBox *flightCheck = nullptr;
     QCheckBox *hotelCheck = nullptr;
     QComboBox *currencyBox = nullptr;
+    QSpinBox  *adultnumberspinBox = nullptr;
+    QSpinBox  *childrennumberspinBox = nullptr;
+    QSpinBox  *flightmaxpriceSpinBox = nullptr;
+    QSpinBox  *hotelmaxpriceSpinBox = nullptr;
+    QSpinBox  * minimumRatingSpinBox= nullptr;
+    QSpinBox  * numberofRoomsSpinBox= nullptr;
+    QPushButton *searchButton = nullptr;
+    QPushButton *extraAmenitiesButton=nullptr;
 };
 
 #endif // TRAVELINFO_H
