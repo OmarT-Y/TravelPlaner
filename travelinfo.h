@@ -17,14 +17,17 @@
 class TravelInfo : public QWidget
 {
     Q_OBJECT
-public:
-    explicit TravelInfo(QWidget *parent = nullptr);
 signals:
 private slots:
     void adultCountChanged();
     void childCoundChanged();
     void AmenitiesButtonClicked();
-private:
+    void hotelTriggered(Qt::CheckState);
+    void flightTriggered(Qt::CheckState);
+    void startDateChanged(QDate date);
+public:
+    explicit TravelInfo(QWidget *parent = nullptr);
+    QPushButton *searchButton = nullptr;
     uint64_t am_flag=0;
     QVBoxLayout *mainWidgetLayout = nullptr;
     QLineEdit *originCitySearch = nullptr;
@@ -40,7 +43,6 @@ private:
     QSpinBox  *hotelmaxpriceSpinBox = nullptr;
     QSpinBox  * minimumRatingSpinBox= nullptr;
     QSpinBox  * numberofRoomsSpinBox= nullptr;
-    QPushButton *searchButton = nullptr;
     QPushButton *extraAmenitiesButton=nullptr;
 };
 

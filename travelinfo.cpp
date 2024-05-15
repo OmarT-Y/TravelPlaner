@@ -5,13 +5,21 @@ TravelInfo::TravelInfo(QWidget *parent)
 {
     this->mainWidgetLayout = new QVBoxLayout(this);
     /*set welcome label*/
-    QLabel *welcomeLabel = new QLabel("Welcome to TripTactics! Your guide for an unforgettable journey",this);
+    QLabel *welcomeLabel = new QLabel("Welcome to TripTactics!",this);
     welcomeLabel->setAlignment(Qt::AlignCenter);
     QFont font = welcomeLabel->font();
     font.setPointSize(18);
     font.setBold(true);
     welcomeLabel->setFont(font);
     mainWidgetLayout->addWidget(welcomeLabel);
+    QLabel *welcomeLabel2 = new QLabel("Your guide for an unforgettable journey!",this);
+    welcomeLabel2->setAlignment(Qt::AlignCenter);
+    QFont font2 = welcomeLabel2->font();
+    font2.setPointSize(18);
+    font2.setBold(true);
+    welcomeLabel2->setFont(font2);
+    mainWidgetLayout->addWidget(welcomeLabel2);
+    // Your guide for an unforgettable journey
     QSpacerItem *mainlayoutSpacer2 = new QSpacerItem(0,30,QSizePolicy::Fixed,QSizePolicy::Fixed);
     mainWidgetLayout->addSpacerItem(mainlayoutSpacer2);
     /*city and date selection*/
@@ -30,8 +38,10 @@ TravelInfo::TravelInfo(QWidget *parent)
     QLabel *startDateLabel = new QLabel("Start Date:",this);
     QLabel *endDateLabel = new QLabel("End Date:",this);
     this->startDate = new QDateEdit(QDate::currentDate(),this);
+    startDate->setDisplayFormat("dd-MM-yyyy");
     startDate->setMinimumDate(QDate::currentDate());
     this->endDate = new QDateEdit(QDate::currentDate(),this);
+    endDate->setDisplayFormat("dd-MM-yyyy");
     //TODO:set the minimum of the end date to the start date (slot signal to be update at changes)
     startDate->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
     endDate->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
@@ -70,10 +80,10 @@ TravelInfo::TravelInfo(QWidget *parent)
     QLabel *flightoptionheaderLabel = new QLabel("Flight Options",this);
     flightoptionheaderLabel->setAlignment(Qt::AlignCenter);
     flightoptionheaderLabel->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-    QFont font2 = flightoptionheaderLabel->font();
-    font2.setPointSize(12);
-    font2.setBold(true);
-    flightoptionheaderLabel->setFont(font2);
+    QFont font22 = flightoptionheaderLabel->font();
+    font22.setPointSize(12);
+    font22.setBold(true);
+    flightoptionheaderLabel->setFont(font22);
     QLabel *hoteloptionheaderLabel = new QLabel("Hotel Options",this);
     hoteloptionheaderLabel->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
     hoteloptionheaderLabel->setAlignment(Qt::AlignCenter);
@@ -87,7 +97,9 @@ TravelInfo::TravelInfo(QWidget *parent)
     QLabel *flightpriceLabel = new QLabel("Max Price:");
     QLabel *hotelpriceLabel = new QLabel("Max Price:");
     hotelmaxpriceSpinBox = new QSpinBox(this);
+    hotelmaxpriceSpinBox->setMaximum(INT32_MAX);
     flightmaxpriceSpinBox = new QSpinBox(this);
+    flightmaxpriceSpinBox->setMaximum(INT32_MAX);
     formLayout1->addRow(flightpriceLabel,flightmaxpriceSpinBox);
     formLayout2->addRow(hotelpriceLabel,hotelmaxpriceSpinBox);
     QLabel *minimumratingLabel = new QLabel("Minimum Rating:");
@@ -115,6 +127,13 @@ TravelInfo::TravelInfo(QWidget *parent)
 
     /*connect amenities button to its slot*/
     connect(extraAmenitiesButton,SIGNAL(clicked(bool)),this,SLOT(AmenitiesButtonClicked()));
+
+    /*connect disables checkboxes*/
+    connect(flightCheck,SIGNAL(checkStateChanged(Qt::CheckState)),this,SLOT(flightTriggered(Qt::CheckState)));
+    connect(hotelCheck,SIGNAL(checkStateChanged(Qt::CheckState)),this,SLOT(hotelTriggered(Qt::CheckState)));
+
+    /*connect date limits slots*/
+    connect(startDate,SIGNAL(dateChanged(QDate)),this,SLOT(startDateChanged(QDate)));
 }
 void TravelInfo::adultCountChanged()
 {
@@ -130,4 +149,36 @@ void TravelInfo::AmenitiesButtonClicked()
     amWin->exec();
     while(amWin->hasFocus());
     amWin->deleteLater();
+}
+void TravelInfo::hotelTriggered(Qt::CheckState state)
+{
+    if(state == Qt::Checked)
+    {
+        hotelmaxpriceSpinBox->setEnabled(false);
+        minimumRatingSpinBox->setEnabled(false);
+        numberofRoomsSpinBox->setEnabled(false);
+        extraAmenitiesButton->setEnabled(false);
+    }
+    else
+    {
+        hotelmaxpriceSpinBox->setEnabled(true);
+        minimumRatingSpinBox->setEnabled(true);
+        numberofRoomsSpinBox->setEnabled(true);
+        extraAmenitiesButton->setEnabled(true);
+    }
+}
+void TravelInfo::flightTriggered(Qt::CheckState state)
+{
+    if(state == Qt::Checked)
+    {
+        flightmaxpriceSpinBox->setEnabled(false);
+    }
+    else
+    {
+        flightmaxpriceSpinBox->setEnabled(true);
+    }
+}
+void TravelInfo::startDateChanged(QDate date)
+{
+    endDate->setMinimumDate(date);
 }

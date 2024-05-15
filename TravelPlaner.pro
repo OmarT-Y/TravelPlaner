@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     amenitieswindow.cpp \
     cityinfo.cpp \
+    cityselectionwindow.cpp \
     hotelsearch.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     amenitieswindow.h \
     cityinfo.h \
+    cityselectionwindow.h \
     hotelsearch.h \
     activities_tours.h \
     flight_search.h \
@@ -27,6 +29,7 @@ HEADERS += \
 
 FORMS += \
     amenitieswindow.ui \
+    cityselectionwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

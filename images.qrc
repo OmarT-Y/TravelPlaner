@@ -3,5 +3,10 @@
         <file>bg1</file>
         <file>bg2</file>
         <file>bg3</file>
+        <file>bg4</file>
+        <file>bg5</file>
+        <file>bg6</file>
+        <file>bg7</file>
+        <file>bg8.jpeg</file>
     </qresource>
 </RCC>

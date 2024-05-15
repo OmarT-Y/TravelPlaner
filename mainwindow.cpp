@@ -9,7 +9,8 @@
 #include <QUrlQuery>
 #include "cityinfo.h"
 #include "hotelsearch.h"
-
+#include "cityselectionwindow.h"
+#include <QMessageBox>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -18,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->travelInfoWidget = new TravelInfo();
     this->ui->mainLayout->addWidget(travelInfoWidget);
     amadeusAuthKey();
+    connect(this->travelInfoWidget->searchButton,SIGNAL(clicked(bool)),this,SLOT(letsTravelClicked()));
+    setObjectName("MainMenu");
+    setStyleSheet("QWidget#MainMenu {border-image: url(:/new/prefix1/bg8);}");
 }
 void MainWindow::amadeusAuthKey()
 {
@@ -41,8 +45,9 @@ void MainWindow::amadeusAuthKey()
     QJsonObject jsonObj = jsonDoc.object();
     amadeusKey = jsonObj["access_token"].toString();
 }
-void MainWindow::City_Search_API(QString searchKey)
+std::vector<CityInfo> MainWindow::City_Search_API(QString searchKey)
 {
+    std::vector<CityInfo> citySearchRes;
     QString baseurl = "https://test.api.amadeus.com/v1/reference-data/locations/cities";
     QUrl url(baseurl);
     QUrlQuery query;
@@ -66,10 +71,13 @@ void MainWindow::City_Search_API(QString searchKey)
     for(const auto &result : data)
     {
         QJsonObject entry = result.toObject();
-        QString lon = ((entry["geoCode"].toObject())["longitude"]).toString();
-        QString lat = ((entry["geoCode"].toObject())["latitude"]).toString();
-        citySearchRes.push_back(CityInfo(entry["name"].toString(),entry["iataCode"].toString(),entry["address"].toObject()["countryCode"].toString(),lon,lat));
+        QString lon = QString::number(entry["geoCode"].toObject()["longitude"].toDouble());
+        QString lat = QString::number(entry["geoCode"].toObject()["latitude"].toDouble());
+        CityInfo city(entry["name"].toString(),entry["iataCode"].toString(),entry["address"].toObject()["countryCode"].toString(),lon,lat);
+        if(city.cityCode.size())
+            citySearchRes.push_back(city);
     }
+    return citySearchRes;
 }
 void MainWindow::Hotel_List(QString cityCode,uint64_t am_flag, int min_rating)
 {
@@ -350,6 +358,74 @@ void MainWindow::Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString c
             this->roomOffers.push_back(offer);
         }
     }
+}
+
+void MainWindow::letsTravelClicked()
+{
+    //retrieve data
+    tripDetails.am_flag=travelInfoWidget->am_flag;
+    tripDetails.currencyCode = travelInfoWidget->currencyBox->currentText();
+    tripDetails.destCity = travelInfoWidget->destCitySearch->text().trimmed();
+    tripDetails.originCity = travelInfoWidget->originCitySearch->text().trimmed();
+    tripDetails.endDate = travelInfoWidget->endDate->date().toString("yyyy-MM-dd");
+    tripDetails.startDate = travelInfoWidget->startDate->date().toString("yyyy-MM-dd");
+    tripDetails.flightEnable = travelInfoWidget->flightCheck->isChecked();
+    tripDetails.hotelEnable = travelInfoWidget->hotelCheck->isChecked();
+    tripDetails.numOfAdult = travelInfoWidget->adultnumberspinBox->text();
+    tripDetails.numOfChild = travelInfoWidget->childrennumberspinBox->text();
+    tripDetails.flightMaxPrice = travelInfoWidget->flightmaxpriceSpinBox->text();
+    tripDetails.hotelMaxPrice = travelInfoWidget->hotelmaxpriceSpinBox->text();
+    tripDetails.hotelMinRating = travelInfoWidget->minimumRatingSpinBox->text();
+    tripDetails.hotelNumOfRooms = travelInfoWidget->numberofRoomsSpinBox->text();
+
+    //open city selection window
+    int originIndex=0;
+    int destIndex=0;
+    CitySelectionWindow * cityWin = new CitySelectionWindow(&originIndex,&destIndex,this);
+    //search origin city
+    std::vector<CityInfo> originCitySearchRes = City_Search_API(tripDetails.originCity);
+    if(!originCitySearchRes.size())
+    {
+        //error no city fond
+        QMessageBox errorBox;
+        errorBox.setIcon(QMessageBox::Critical);
+        errorBox.setText("No Origin City was found Please try again");
+        errorBox.setWindowTitle("Error");
+        errorBox.setStandardButtons(QMessageBox::Ok);
+        // Displaying the error message
+        errorBox.exec();
+        return;
+    }
+    for(auto const& city:originCitySearchRes)
+    {
+        cityWin->addOriginCity(city.cityName+","+city.countryCode+",("+city.cityCode+")");
+    }
+    //search destination city
+    std::vector<CityInfo> destCitySearchRes = City_Search_API(tripDetails.destCity);
+    if(!destCitySearchRes.size())
+    {
+        //error no city fond
+        QMessageBox errorBox;
+        errorBox.setIcon(QMessageBox::Critical);
+        errorBox.setText("No Destination City was found Please try again");
+        errorBox.setWindowTitle("Error");
+        errorBox.setStandardButtons(QMessageBox::Ok);
+        // Displaying the error message
+        errorBox.exec();
+        return;
+    }
+    for(auto const& city:destCitySearchRes)
+    {
+        cityWin->addDestCity(city.cityName+","+city.countryCode+",("+city.cityCode+")");
+    }
+    cityWin->exec();
+    while(cityWin->hasFocus());
+    cityWin->deleteLater();
+    /*get the selected city*/
+    this->originCity = originCitySearchRes[originIndex];
+    this->destCity = destCitySearchRes[destIndex];
+
+    this->travelInfoWidget->deleteLater();
 }
 /*end Omar Tamer*/
 
