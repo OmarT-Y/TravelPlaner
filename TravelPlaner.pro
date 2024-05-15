@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    amenitieswindow.cpp \
     cityinfo.cpp \
     hotelsearch.cpp \
     main.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
     travelinfo.cpp
 
 HEADERS += \
+    amenitieswindow.h \
     cityinfo.h \
     hotelsearch.h \
     activities_tours.h \
@@ -24,6 +26,7 @@ HEADERS += \
     travelinfo.h
 
 FORMS += \
+    amenitieswindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

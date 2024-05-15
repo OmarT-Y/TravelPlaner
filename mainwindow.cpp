@@ -18,10 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->travelInfoWidget = new TravelInfo();
     this->ui->mainLayout->addWidget(travelInfoWidget);
     amadeusAuthKey();
-    this->Hotel_List("CAI",0,0);
-    Hotel_Search_API(1,2,"2024-05-21","2024-05-29","EGP","");
 }
-
 void MainWindow::amadeusAuthKey()
 {
     //get the key
@@ -74,7 +71,7 @@ void MainWindow::City_Search_API(QString searchKey)
         citySearchRes.push_back(CityInfo(entry["name"].toString(),entry["iataCode"].toString(),entry["address"].toObject()["countryCode"].toString(),lon,lat));
     }
 }
-void MainWindow::Hotel_List(QString cityCode,uint32_t am_flag, int min_rating)
+void MainWindow::Hotel_List(QString cityCode,uint64_t am_flag, int min_rating)
 {
     QString baseurl = "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city";
     QUrl url(baseurl);

@@ -1,4 +1,5 @@
 #include "travelinfo.h"
+#include "amenitieswindow.h"
 TravelInfo::TravelInfo(QWidget *parent)
     : QWidget{parent}
 {
@@ -41,7 +42,9 @@ TravelInfo::TravelInfo(QWidget *parent)
     QLabel *adultNumberLabel = new QLabel("Adult Travelers:",this);
     QLabel *childrenNumberLabel = new QLabel("Child Travelers:",this);
     adultnumberspinBox=new QSpinBox();
+    adultnumberspinBox->setMaximum(9);
     childrennumberspinBox=new QSpinBox();
+    childrennumberspinBox->setMaximum(9);
     formLayout1->addRow(adultNumberLabel,adultnumberspinBox);
     formLayout2->addRow(childrenNumberLabel,childrennumberspinBox);
 
@@ -105,4 +108,26 @@ TravelInfo::TravelInfo(QWidget *parent)
     mainWidgetLayout->addSpacerItem(mainlayoutSpacer);
     mainWidgetLayout->addWidget(searchButton);
 
+
+    /*slot connection for limitting the maxmimum travers to 10*/
+    connect(adultnumberspinBox,SIGNAL(valueChanged(int)),this,SLOT(adultCountChanged()));
+    connect(childrennumberspinBox,SIGNAL(valueChanged(int)),this,SLOT(childCountChanged()));
+
+    /*connect amenities button to its slot*/
+    connect(extraAmenitiesButton,SIGNAL(clicked(bool)),this,SLOT(AmenitiesButtonClicked()));
+}
+void TravelInfo::adultCountChanged()
+{
+    childrennumberspinBox->setMaximum(9-adultnumberspinBox->value());
+}
+void TravelInfo::childCoundChanged()
+{
+    adultnumberspinBox->setMaximum(9-childrennumberspinBox->value());
+}
+void TravelInfo::AmenitiesButtonClicked()
+{
+    AmenitiesWindow *amWin = new AmenitiesWindow(&am_flag,this);
+    amWin->exec();
+    while(amWin->hasFocus());
+    amWin->deleteLater();
 }

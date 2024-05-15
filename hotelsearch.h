@@ -1,8 +1,8 @@
 #ifndef HOTELSEARCH_H
 #define HOTELSEARCH_H
 #include <QString>
-QString amenitiesToQString(uint32_t am_flag);
-
+QString amenitiesToQString(uint64_t am_flag);
+extern std::vector<QString> amenities;
 class HotelRoomOfferInfo
 {
 public:

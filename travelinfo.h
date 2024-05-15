@@ -19,9 +19,13 @@ class TravelInfo : public QWidget
     Q_OBJECT
 public:
     explicit TravelInfo(QWidget *parent = nullptr);
-
 signals:
+private slots:
+    void adultCountChanged();
+    void childCoundChanged();
+    void AmenitiesButtonClicked();
 private:
+    uint64_t am_flag=0;
     QVBoxLayout *mainWidgetLayout = nullptr;
     QLineEdit *originCitySearch = nullptr;
     QLineEdit *destCitySearch = nullptr;

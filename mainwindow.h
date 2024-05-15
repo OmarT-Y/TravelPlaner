@@ -29,7 +29,7 @@ public:
     ~MainWindow();
     void amadeusAuthKey();
     void City_Search_API(QString searchKey);
-    void Hotel_List(QString cityCode,uint32_t am_flag, int min_rating);
+    void Hotel_List(QString cityCode,uint64_t am_flag, int min_rating);
     void flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate ,int adults , int children,QString returnDate, QString currency,QString amount  );
     void get_Tours_Activities(QString latitude , QString longitude );
     QString getAirline(QString code);
