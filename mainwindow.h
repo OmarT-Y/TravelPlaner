@@ -36,14 +36,13 @@ public:
 
     /*Omar Tamer*/
     QString getErrorMsgJson(QJsonDocument &doc);
-    void Hotel_Search_API(int number_of_rooms ,QString checkIn,QString checkOut,QString currency,QString price_low,QString price_high);
+    void Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString checkIn,QString checkOut,QString currency,QString price_high );
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
     void getCityInfo(CityInfo city);
 //void getHotelExtraInfo( int number_of_rooms , QString price_low,QString price_high ,QString currency);
     /*end Ziad Mohamed*/
 private slots:
-    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

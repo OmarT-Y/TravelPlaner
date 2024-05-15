@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     this->travelInfoWidget = new TravelInfo();
     this->ui->mainLayout->addWidget(travelInfoWidget);
     amadeusAuthKey();
+    this->Hotel_List("CAI",0,0);
+    Hotel_Search_API(1,2,"2024-05-21","2024-05-29","EGP","");
 }
 
 void MainWindow::amadeusAuthKey()
@@ -80,7 +82,8 @@ void MainWindow::Hotel_List(QString cityCode,uint32_t am_flag, int min_rating)
 
     query.addQueryItem("cityCode",cityCode.toUtf8());
     QString amenities = amenitiesToQString(am_flag);
-    query.addQueryItem("amenities", QUrl::toPercentEncoding(amenities));
+    if(am_flag)
+        query.addQueryItem("amenities", QUrl::toPercentEncoding(amenities));
     query.addQueryItem("radius","20");
     if(min_rating > 1 )
     {
@@ -266,7 +269,7 @@ QString MainWindow::getErrorMsgJson(QJsonDocument &doc)
     return "NoErr";
 }
 
-void MainWindow::Hotel_Search_API(int number_of_rooms ,QString checkIn,QString checkOut,QString currency,QString price_low,QString price_high)
+void MainWindow::Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString checkIn,QString checkOut,QString currency,QString price_high = "")
 {
     QString baseurl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
     QUrl url(baseurl);
@@ -284,8 +287,12 @@ void MainWindow::Hotel_Search_API(int number_of_rooms ,QString checkIn,QString c
     query.addQueryItem("checkOutDate",checkOut.toUtf8());
     query.addQueryItem("includeClosed","false");
     query.addQueryItem("currency",currency.toUtf8());
-    QString price_range=price_low+'-'+price_high;
-    query.addQueryItem("priceRange",price_range.toUtf8());
+    query.addQueryItem("adults",QString::number(adultInRoom).toUtf8());
+    if(price_high.size())
+    {
+        QString price_range="0-"+price_high;
+        query.addQueryItem("priceRange",price_range.toUtf8());
+    }
     url.setQuery(query);
 
     QNetworkRequest request(url);
@@ -302,7 +309,49 @@ void MainWindow::Hotel_Search_API(int number_of_rooms ,QString checkIn,QString c
     QJsonArray data = resDoc["data"].toArray();
     for(auto const& entry:data)
     {
+        HotelRoomOfferInfo offer;
         QJsonObject HotelOffer = entry.toObject();
+        //hotel details
+        offer.hotelName = HotelOffer["hotel"].toObject()["name"].toString();
+        //offer details
+        QJsonArray offers= HotelOffer["offers"].toArray();
+        for(auto const& offer_entry:offers)
+        {
+            QJsonObject hotel_offer = offer_entry.toObject();
+            offer.numOf_rooms = hotel_offer["roomQuantity"].toInt();
+            if(offer.numOf_rooms==0)offer.numOf_rooms=number_of_rooms;
+            offer.roomCategory = ((hotel_offer["room"].toObject())["typeEstimated"].toObject())["category"].toString();
+            offer.numOf_beds = ((hotel_offer["room"].toObject())["typeEstimated"].toObject())["beds"].toInt();
+            offer.bedtype = ((hotel_offer["room"].toObject())["typeEstimated"].toObject())["bedType"].toString();
+            offer.offer_description = ((hotel_offer["room"].toObject())["description"].toObject())["text"].toString();
+            offer.currencyCode = ((hotel_offer["price"].toObject()))["currency"].toString();
+            offer.price = ((hotel_offer["price"].toObject()))["total"].toString();
+            if(hotel_offer.contains("boardType"))
+                offer.boardType = hotel_offer["boardType"].toString();
+            else
+                offer.boardType = "";
+            offer.payment_type = ((hotel_offer["policies"].toObject()))["paymentType"].toString();
+            QJsonObject price = hotel_offer["price"].toObject();
+            if (price.contains("taxes"))
+            {
+                QJsonObject taxes = price["taxes"].toObject();
+                if (taxes.contains("amount") && !taxes["included"].toBool())
+                    offer.taxAmount = taxes["amount"].toString();
+                else
+                    offer.taxAmount = "";
+
+                if (taxes.contains("percentage") && !taxes["included"].toBool())
+                    offer.taxPer = taxes["percentage"].toString();
+                else
+                    offer.taxPer = "";
+            }
+            else
+            {
+                offer.taxPer = "";
+                offer.taxAmount = "";
+            }
+            this->roomOffers.push_back(offer);
+        }
     }
 }
 /*end Omar Tamer*/
@@ -343,50 +392,9 @@ void MainWindow::getCityInfo(CityInfo city)
        CityFullinfo.second_language_name=jsonDocument["languages"].toArray()[1].toObject()["name"].toString();
     }
 }
-
-// void MainWindow::getHotelExtraInfo(int number_of_rooms , QString price_low,QString price_high ,QString currency)
-// {
-//     QString baseurl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
-//     QUrl url(baseurl);
-//     QUrlQuery query;
-
-//     QString hotelListString="";
-//     for(int i=1;i<cityHotelRes.size();i++)
-//     {
-//         hotelListString+=cityHotelRes[i].h_ID;
-//         hotelListString+=',';
-//     }
-//     hotelListString.removeLast();
-
-//     query.addQueryItem("hotelIds",hotelListString.toUtf8());
-//     query.addQueryItem("roomQuantity" , QString::number(number_of_rooms).toUtf8());
-//     QString price_range=price_low+'-'+price_high;
-//     query.addQueryItem("priceRange",price_range.toUtf8());
-//     query.addQueryItem("currency",currency.toUtf8());
-//     url.setQuery(query);
-
-//     QNetworkRequest request(url);
-//     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
-//     request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
-//     reply = manager.get(request);
-
-//     // Busy wait until the reply is ready
-//     while (!reply->isFinished()) {
-//         qApp->processEvents(); // Process events to prevent GUI freeze
-//     }
-//     QByteArray data = reply->readAll();
-// }
-/*end Ziad Mohamed*/
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    CityInfo city;
-    city.countryCode="EG";
-    this->Hotel_List("CAI",7, 4);
-   // this->getHotelExtraInfo(1,"100","10000","EGP");
-}
 
