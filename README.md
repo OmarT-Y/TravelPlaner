@@ -11,8 +11,10 @@ TripTactics is a travel planning application that helps users organize their tri
 
 ## Getting Started
 ## Screenshots
-<img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/e2cc33d8-81e8-4eb2-9d3d-63cc8a9ace8e" width="500" height="500">
-<img src="(https://github.com/OmarT-Y/TravelPlaner/assets/73003302/be4906d0-ab2d-4f4e-bec6-11ecc6ad5c85)" width="500" height="500">
+<img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/e2cc33d8-81e8-4eb2-9d3d-63cc8a9ace8e" width="400" height="400">
+<img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/be4906d0-ab2d-4f4e-bec6-11ecc6ad5c85" width="400" height="400">
+<img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/7c6eff63-f7ce-4caa-869e-873751df9293" width="400" height="400">
+<img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/a92cec94-5c93-4fc9-891b-7446b920ee89" width="400" height="400">
 
 ## Functional Requirements:
 1-	The User should be able to specify : 
