@@ -4,6 +4,7 @@
 #include <QImage>
 #include <QWidget>
 #include "flightinfowidget.h"
+#include "hotelscell.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QPixmap>
@@ -19,7 +20,7 @@ public:
     explicit TabViewInfo(CityInfoAll *originCityInfo,CityInfoAll *destCityInfo,QWidget *parent = nullptr);
     ~TabViewInfo();
     void addFlightOffer(FlightInfoWidget* offer);
-    // void addHotelOffer(HotelOfferInfoWidget* offer);
+    void addHotelOffer(hotelsCell* offer);
     // void addActivity(ActivityInfoWidget* offer);
 private:
     Ui::TabViewInfo *ui;

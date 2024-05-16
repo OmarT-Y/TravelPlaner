@@ -295,14 +295,15 @@ void MainWindow::Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString c
     query.addQueryItem("roomQuantity" , QString::number(number_of_rooms).toUtf8());
     query.addQueryItem("checkInDate",checkIn.toUtf8());
     query.addQueryItem("checkOutDate",checkOut.toUtf8());
-    query.addQueryItem("includeClosed","false");
-    query.addQueryItem("currency",currency.toUtf8());
     query.addQueryItem("adults",QString::number(adultInRoom).toUtf8());
     if(price_high.size()&&price_high!="0")
     {
         QString price_range="0-"+price_high;
         query.addQueryItem("priceRange",price_range.toUtf8());
+        query.addQueryItem("currency",currency.toUtf8());
     }
+    query.addQueryItem("paymentPolicy","NONE");
+    query.addQueryItem("includeClosed","false");
     url.setQuery(query);
 
     QNetworkRequest request(url);
@@ -442,8 +443,14 @@ void MainWindow::letsTravelClicked()
         FlightInfoWidget *flightWidget = new FlightInfoWidget(originCity.cityName,destCity.cityName,&flight_offers[i],this);
         tabView->addFlightOffer(flightWidget);
     }
-    Hotel_List(destCity.cityCode,tripDetails.am_flag,tripDetails.hotelMinRating.toInt());
-    Hotel_Search_API(tripDetails.hotelNumOfRooms.toInt(),tripDetails.numOfAdult.toInt(),tripDetails.startDate,tripDetails.endDate,tripDetails.currencyCode);
+    Hotel_List(destCity.cityCode,tripDetails.am_flag, tripDetails.hotelMinRating.toInt());
+    Hotel_Search_API(tripDetails.hotelNumOfRooms.toInt(),tripDetails.numOfAdult.toInt(),\
+                    tripDetails.startDate,tripDetails.endDate,tripDetails.currencyCode,tripDetails.hotelMaxPrice);
+    for(int j=0;j<roomOffers.size();j++)
+    {
+        hotelsCell *hotelWidget = new hotelsCell(&roomOffers[j],this);
+        tabView->addHotelOffer(hotelWidget);
+    }
 }
 /*end Omar Tamer*/
 

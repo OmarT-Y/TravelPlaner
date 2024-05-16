@@ -2,7 +2,7 @@
 #define HOTELSCELL_H
 
 #include <QWidget>
-
+#include "hotelsearch.h"
 namespace Ui {
 class hotelsCell;
 }
@@ -12,7 +12,7 @@ class hotelsCell : public QWidget
     Q_OBJECT
 
 public:
-    explicit hotelsCell(QWidget *parent = nullptr);
+    explicit hotelsCell(HotelRoomOfferInfo *currentHotel,QWidget *parent = nullptr);
     ~hotelsCell();
 
 private:
