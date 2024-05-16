@@ -58,10 +58,10 @@ void TabViewInfo::addFlightOffer(FlightInfoWidget* offer)
 {
     ui->flightLayout->addWidget(offer);
 }
-// void TabViewInfo::addHotelOffer(HotelOfferInfoWiget* offer)
-// {
-//     ui->accomodationLayout->addWidget(offer);
-// }
+void TabViewInfo::addHotelOffer(hotelsCell* offer)
+{
+    ui->accomodationLayout->addWidget(offer);
+}
 // void TabViewInfo::addActivity(ActivityInfoWidget* offer)
 // {
 //     ui->activiteisLayout->addWidget(offer);

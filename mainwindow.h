@@ -14,6 +14,7 @@
 #include "flight_search.h"
 #include "activities_tours.h"
 #include "travelinfo.h"
+#include "hotelscell.h"
 
 typedef struct
 {
