@@ -22,5 +22,4 @@ public:
     std::pair <flight,flight> flights;
 
 };
-
 #endif // FLIGHT_SEARCH_H

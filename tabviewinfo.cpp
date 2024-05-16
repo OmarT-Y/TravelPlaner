@@ -54,7 +54,18 @@ TabViewInfo::TabViewInfo(CityInfoAll* originCityFullInfo,CityInfoAll* destCityFu
     ui->destCurrencyLabel->setText("Currency: "+ destCityFullInfo->currency_name +"-"+destCityFullInfo->currency_code + " ("+destCityFullInfo->currency_symbol+")");
     ui->destlangLabel->setText("Language: "+ destCityFullInfo->first_language_name );
 }
-
+void TabViewInfo::addFlightOffer(FlightInfoWidget* offer)
+{
+    ui->flightLayout->addWidget(offer);
+}
+// void TabViewInfo::addHotelOffer(HotelOfferInfoWiget* offer)
+// {
+//     ui->accomodationLayout->addWidget(offer);
+// }
+// void TabViewInfo::addActivity(ActivityInfoWidget* offer)
+// {
+//     ui->activiteisLayout->addWidget(offer);
+// }
 TabViewInfo::~TabViewInfo()
 {
     delete ui;

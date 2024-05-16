@@ -11,6 +11,7 @@
 #include "hotelsearch.h"
 #include "cityselectionwindow.h"
 #include <QMessageBox>
+#include "flightinfowidget.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -144,7 +145,9 @@ QString MainWindow::getAirline(QString code)
     QByteArray data = reply->readAll();
     QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
     QJsonArray data_array = jsonDocument["data"].toArray();
-    return data_array[0].toObject()["businessName"].toString();
+    if(data_array.size())
+        return data_array[0].toObject()["businessName"].toString();
+    return "";
 }
 void MainWindow::flight_offer_search_API(QString originLocationCode , QString destinationLocationCode , QString departureDate , int adults , int children=-1,QString returnDate="", QString currency="",QString amount ="")
 {
@@ -426,11 +429,19 @@ void MainWindow::letsTravelClicked()
     this->originCity = originCitySearchRes[originIndex];
     this->destCity = destCitySearchRes[destIndex];
 
-    this->travelInfoWidget->deleteLater();
+    delete travelInfoWidget;
+
+
     originCityFullinfo=getCityInfo(originCity);
     destCityFullinfo=getCityInfo(destCity);
     tabView = new TabViewInfo(&originCityFullinfo,&destCityFullinfo,this);
     this->ui->mainLayout->addWidget(tabView);
+    flight_offer_search_API(originCity.cityCode,destCity.cityCode,tripDetails.startDate,tripDetails.numOfAdult.toInt(),tripDetails.numOfChild.toInt(),tripDetails.endDate);
+    for(int i =0;i<flight_offers.size();i++)
+    {
+        FlightInfoWidget *flightWidget = new FlightInfoWidget(originCity.cityName,destCity.cityName,&flight_offers[i],this);
+        tabView->addFlightOffer(flightWidget);
+    }
 }
 /*end Omar Tamer*/
 

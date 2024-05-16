@@ -3,6 +3,7 @@
 #include "cityinfo.h"
 #include <QImage>
 #include <QWidget>
+#include "flightinfowidget.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QPixmap>
@@ -17,7 +18,9 @@ class TabViewInfo : public QWidget
 public:
     explicit TabViewInfo(CityInfoAll *originCityInfo,CityInfoAll *destCityInfo,QWidget *parent = nullptr);
     ~TabViewInfo();
-
+    void addFlightOffer(FlightInfoWidget* offer);
+    // void addHotelOffer(HotelOfferInfoWidget* offer);
+    // void addActivity(ActivityInfoWidget* offer);
 private:
     Ui::TabViewInfo *ui;
 };
