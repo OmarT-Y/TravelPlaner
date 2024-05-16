@@ -64,4 +64,318 @@ TripTactics is a travel planning application that helps users organize their tri
 5- Size : Size of the program is in order of few mega bytes
 6- Security : The data of the Trip is processed locally
     
+    
+## User Stories and Acceptance Criteria: 
 
+# User Story 1: 
+
+As a user 
+
+I want to search for flights between two cities on specific dates. 
+
+So that I can plan my travel itinerary efficiently. 
+
+Acceptance Criteria: 
+
+The user can enter the origin and destination cities. 
+
+The user can select the start and end dates. 
+
+The system displays a list of available flights between the specified cities for    the specified dates. 
+
+ 
+
+ 
+
+# User Story 2: 
+
+As a user 
+
+I want to search for hotels in a destination city with specific criteria. 
+
+So that I can find suitable accommodation for my trip. 
+
+Acceptance Criteria: 
+
+The user can enter the destination city. 
+
+The user can select the start and end dates. 
+
+The system displays a list of available hotels in the specified city for the specified dates.	 
+
+ 
+
+ 
+
+# User Story 3: 
+
+As a user 
+
+I want to input my travel start and end dates. 
+
+So that I can find available flights and hotels for those dates. 
+
+Acceptance Criteria: 
+
+The user can select a start date from a calendar input. 
+
+The user can select an end date from a calendar input. 
+
+The system validates that the end date is not before the start date. 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+# User Story 4: 
+
+As a user 
+
+I want to specify the number of adult and child travelers. 
+
+So that I can get accurate flight and hotel options. 
+
+Acceptance Criteria: 
+
+The user can specify the number of adult travelers. 
+
+The user can specify the number of child travelers. 
+
+The system validates that the number of travelers is a non-negative integer. 
+
+ 
+
+ 
+
+# User Story 5: 
+
+As a user 
+
+I want to set a maximum price for flights. 
+
+So that I can stay within my budget. 
+
+Acceptance Criteria: 
+
+The user can enter a maximum price for flights. 
+
+The system validates that the maximum price is a non-negative number. 
+
+The system displays flights within the specified budget. 
+
+ 
+
+ 
+
+# User Story 6: 
+
+As a user 
+
+I want to set a maximum price for hotels. 
+
+So that I can find accommodation that fits my budget. 
+
+Acceptance Criteria: 
+
+The user can enter a maximum price for hotels. 
+
+The system validates that the maximum price is a non-negative number. 
+
+The system displays hotels within the specified budget. 
+
+ 
+
+ 
+
+# User Story 7: 
+
+As a user 
+
+I want to filter hotels by minimum rating. 
+
+So that I can choose high-quality accommodations. 
+
+Acceptance Criteria: 
+
+The user can specify a minimum rating for hotels. 
+
+The system validates that the rating is between 0 and 5. 
+
+The system displays hotels with ratings equal to or higher than the specified minimum rating. 
+
+ 
+
+# User Story 8: 
+
+As a user 
+
+I want to select the number of hotel rooms needed. 
+
+So that I can accommodate all travelers comfortably. 
+
+Acceptance Criteria: 
+
+The user can specify the number of hotel rooms needed. 
+
+The system validates that the number of rooms is a non-negative integer. 
+
+The system includes the number of rooms in the hotel search criteria. 
+
+ 
+
+ 
+
+# User Story 9: 
+
+As a user 
+
+I want to disable the flight planning option. 
+
+So that I can focus only on booking hotels. 
+
+Acceptance Criteria: 
+
+The user can check a box to disable flight planning. 
+
+When the box is checked, the flight planning options are hidden or disabled. 
+
+The system does not include flight options in the travel plan when flight planning is disabled. 
+
+ 
+
+ 
+
+# User Story 10: 
+
+As a user 
+
+I want to disable the hotel planning option. 
+
+So that I can focus only on booking flights. 
+
+Acceptance Criteria: 
+
+The user can check a box to disable hotel planning. 
+
+When the box is checked, the hotel planning options are hidden or disabled. 
+
+The system does not include hotel options in the travel plan when hotel planning is disabled. 
+
+ 
+
+# User Story 11: 
+
+As a user 
+
+I want to choose extra amenities for my hotel stay. 
+
+So that I can enhance my travel experience. 
+
+Acceptance Criteria: 
+
+The user can select extra amenities for the hotel stay from a predefined list. 
+
+The system includes the selected amenities in the hotel search criteria. 
+
+The system displays hotels that offer selected amenities. 
+
+ 
+
+# User Story 12: 
+
+As a user 
+
+I want to select the currency for the price display. 
+
+So that I can view costs in my preferred currency. 
+
+Acceptance Criteria: 
+
+The user can select a currency from a dropdown menu. 
+
+The system displays prices in the selected currency. 
+
+The system converts prices accurately based on current exchange rates. 
+
+ 
+
+# User Story 13: 
+
+As a user 
+
+I want to be able to select the origin city using the abbreviation of the airport I want to use. 
+
+So that I can precisely specify the airport I want to use. 
+
+Acceptance Criteria: 
+
+The user can search for a city by writing only the abbreviation of its airport. 
+
+The program views the city and other suggestions in a drop-down menu. 
+
+ 
+
+# User Story 14: 
+
+As a user 
+
+I want to be able to select the destination city using the abbreviation of the airport I want to use. 
+
+So that I can precisely specify the airport I want to use. 
+
+Acceptance Criteria: 
+
+The user can search for a city by writing only the abbreviation of its airport. 
+
+The program views the city and other suggestions in a drop-down menu. 
+
+# User Story 15: 
+
+As a user 
+
+I want to be able to read the text labels and have smooth interactions with the buttons. 
+
+So that I can enjoy easy experiences with the program. 
+
+Acceptance Criteria: 
+
+The fonts and the alignments should be appealing to the users. 
+
+The buttons should be big enough to press on. 
+
+The drop-down menus should be large enough to select from. 
+
+
+ 
+
+# User Story 16: 
+
+As a user 
+
+I want to be able to view local attraction sites in the destination city. 
+
+So that I can plan for visiting them. 
+
+Acceptance Criteria: 
+
+The user can navigate through different tabs and see what is suggested in the local attractions and activities tab. 
+
+ 
+
+# User Story 17: 
+
+As a user 
+
+I want to be able to view local activities in the destination city in the time frame I am providing. 
+
+So that I can attend these activities and put them on my time schedule. 
+
+Acceptance Criteria: 
+
+The user can navigate through different tabs and see what is suggested in the local attractions and activities tab. 
