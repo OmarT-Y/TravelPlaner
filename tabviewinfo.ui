@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
@@ -106,7 +106,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="flightTab">
         <attribute name="title">
@@ -114,11 +114,11 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="QScrollArea" name="scrollArea">
+          <widget class="QScrollArea" name="flightScrollArea">
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents">
+           <widget class="QWidget" name="flightAreaWidget">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -127,6 +127,11 @@
               <height>142</height>
              </rect>
             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <layout class="QVBoxLayout" name="flightLayout"/>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -138,11 +143,11 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QScrollArea" name="scrollArea_2">
+          <widget class="QScrollArea" name="accomodationScrollArea">
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <widget class="QWidget" name="accomodationAreaWidget">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -151,6 +156,11 @@
               <height>142</height>
              </rect>
             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <layout class="QVBoxLayout" name="accomodationLayout"/>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -162,11 +172,11 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QScrollArea" name="scrollArea_3">
+          <widget class="QScrollArea" name="activitiesScrollArea">
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_3">
+           <widget class="QWidget" name="activitiesAreaWidget">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -175,6 +185,11 @@
               <height>142</height>
              </rect>
             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <layout class="QVBoxLayout" name="activiteisLayout"/>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>

@@ -9,7 +9,18 @@ TabViewInfo::TabViewInfo(CityInfoAll* originCityFullInfo,CityInfoAll* destCityFu
     QImage image ;
 
 }
-
+void TabViewInfo::addFlightOffer(FlightInfoWidget* offer)
+{
+    ui->flightLayout->addWidget(offer);
+}
+// void TabViewInfo::addHotelOffer(HotelOfferInfoWiget* offer)
+// {
+//     ui->accomodationLayout->addWidget(offer);
+// }
+// void TabViewInfo::addActivity(ActivityInfoWidget* offer)
+// {
+//     ui->activiteisLayout->addWidget(offer);
+// }
 TabViewInfo::~TabViewInfo()
 {
     delete ui;
