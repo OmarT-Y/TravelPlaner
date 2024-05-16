@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    activitiescell.cpp \
     amenitieswindow.cpp \
     cityinfo.cpp \
     cityselectionwindow.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
     travelinfo.cpp
 
 HEADERS += \
+    activitiescell.h \
     amenitieswindow.h \
     cityinfo.h \
     cityselectionwindow.h \
@@ -34,6 +36,7 @@ HEADERS += \
     travelinfo.h
 
 FORMS += \
+    activitiescell.ui \
     amenitieswindow.ui \
     cityselectionwindow.ui \
     flightinfowidget.ui \

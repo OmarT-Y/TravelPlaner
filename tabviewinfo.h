@@ -8,6 +8,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QPixmap>
+#include "activitiescell.h"
 namespace Ui {
 class TabViewInfo;
 }
@@ -21,7 +22,7 @@ public:
     ~TabViewInfo();
     void addFlightOffer(FlightInfoWidget* offer);
     void addHotelOffer(hotelsCell* offer);
-    // void addActivity(ActivityInfoWidget* offer);
+    void addActivity(activitiescell* offer);
 private:
     Ui::TabViewInfo *ui;
 };

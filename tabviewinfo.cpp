@@ -62,10 +62,10 @@ void TabViewInfo::addHotelOffer(hotelsCell* offer)
 {
     ui->accomodationLayout->addWidget(offer);
 }
-// void TabViewInfo::addActivity(ActivityInfoWidget* offer)
-// {
-//     ui->activiteisLayout->addWidget(offer);
-// }
+void TabViewInfo::addActivity(activitiescell* offer)
+{
+    ui->activiteisLayout->addWidget(offer);
+}
 TabViewInfo::~TabViewInfo()
 {
     delete ui;
