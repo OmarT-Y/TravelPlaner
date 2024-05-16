@@ -11,6 +11,7 @@
 #include "hotelsearch.h"
 #include "cityselectionwindow.h"
 #include <QMessageBox>
+#include "flightinfowidget.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -427,10 +428,17 @@ void MainWindow::letsTravelClicked()
     this->destCity = destCitySearchRes[destIndex];
 
     this->travelInfoWidget->deleteLater();
-    originCityFullinfo=getCityInfo(originCity);
-    destCityFullinfo=getCityInfo(destCity);
-    tabView = new TabViewInfo(&originCityFullinfo,&destCityFullinfo,this);
-    this->ui->mainLayout->addWidget(tabView);
+
+
+    // originCityFullinfo=getCityInfo(originCity);
+    // destCityFullinfo=getCityInfo(destCity);
+    // tabView = new TabViewInfo(&originCityFullinfo,&destCityFullinfo,this);
+    // this->ui->mainLayout->addWidget(tabView);
+    flight_offer_search_API(originCity.cityCode,destCity.cityCode,tripDetails.startDate,tripDetails.numOfAdult.toInt(),tripDetails.numOfChild.toInt(),tripDetails.endDate);
+    FlightInfoWidget *omar = new FlightInfoWidget(originCity.cityName,destCity.cityName,&flight_offers[0],this);
+    ui->mainLayout->addWidget(omar);
+    QSpacerItem *spacer = new QSpacerItem(0,0,QSizePolicy::Fixed,QSizePolicy::Expanding);
+    ui->mainLayout->addSpacerItem(spacer);
 }
 /*end Omar Tamer*/
 
