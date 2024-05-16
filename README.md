@@ -67,7 +67,7 @@ TripTactics is a travel planning application that helps users organize their tri
     
 ## User Stories and Acceptance Criteria: 
 
-# User Story 1: 
+### User Story 1: 
 
 As a user 
 
@@ -87,7 +87,7 @@ The system displays a list of available flights between the specified cities for
 
  
 
-# User Story 2: 
+### User Story 2: 
 
 As a user 
 
@@ -107,7 +107,7 @@ The system displays a list of available hotels in the specified city for the spe
 
  
 
-# User Story 3: 
+### User Story 3: 
 
 As a user 
 
@@ -133,7 +133,7 @@ The system validates that the end date is not before the start date.
 
  
 
-# User Story 4: 
+### User Story 4: 
 
 As a user 
 
@@ -153,7 +153,7 @@ The system validates that the number of travelers is a non-negative integer.
 
  
 
-# User Story 5: 
+### User Story 5: 
 
 As a user 
 
@@ -173,7 +173,7 @@ The system displays flights within the specified budget.
 
  
 
-# User Story 6: 
+### User Story 6: 
 
 As a user 
 
@@ -193,7 +193,7 @@ The system displays hotels within the specified budget.
 
  
 
-# User Story 7: 
+### User Story 7: 
 
 As a user 
 
@@ -211,7 +211,7 @@ The system displays hotels with ratings equal to or higher than the specified mi
 
  
 
-# User Story 8: 
+### User Story 8: 
 
 As a user 
 
@@ -231,7 +231,7 @@ The system includes the number of rooms in the hotel search criteria.
 
  
 
-# User Story 9: 
+### User Story 9: 
 
 As a user 
 
@@ -251,7 +251,7 @@ The system does not include flight options in the travel plan when flight planni
 
  
 
-# User Story 10: 
+### User Story 10: 
 
 As a user 
 
@@ -269,7 +269,7 @@ The system does not include hotel options in the travel plan when hotel planning
 
  
 
-# User Story 11: 
+### User Story 11: 
 
 As a user 
 
@@ -287,7 +287,7 @@ The system displays hotels that offer selected amenities.
 
  
 
-# User Story 12: 
+### User Story 12: 
 
 As a user 
 
@@ -305,7 +305,7 @@ The system converts prices accurately based on current exchange rates.
 
  
 
-# User Story 13: 
+### User Story 13: 
 
 As a user 
 
@@ -321,7 +321,7 @@ The program views the city and other suggestions in a drop-down menu.
 
  
 
-# User Story 14: 
+### User Story 14: 
 
 As a user 
 
@@ -335,7 +335,7 @@ The user can search for a city by writing only the abbreviation of its airport.
 
 The program views the city and other suggestions in a drop-down menu. 
 
-# User Story 15: 
+### User Story 15: 
 
 As a user 
 
@@ -354,7 +354,7 @@ The drop-down menus should be large enough to select from.
 
  
 
-# User Story 16: 
+### User Story 16: 
 
 As a user 
 
@@ -368,7 +368,7 @@ The user can navigate through different tabs and see what is suggested in the lo
 
  
 
-# User Story 17: 
+### User Story 17: 
 
 As a user 
 
