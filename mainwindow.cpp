@@ -125,6 +125,7 @@ void MainWindow::Hotel_List(QString cityCode,uint64_t am_flag, int min_rating)
     {
         QJsonObject hotel = entry.toObject();
         cityHotelRes.push_back(hotel["hotelId"].toString());
+        if(cityHotelRes.size()>49)break;
     }
 }
 QString MainWindow::getAirline(QString code)
@@ -296,7 +297,7 @@ void MainWindow::Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString c
     query.addQueryItem("checkInDate",checkIn.toUtf8());
     query.addQueryItem("checkOutDate",checkOut.toUtf8());
     query.addQueryItem("adults",QString::number(adultInRoom).toUtf8());
-    if(price_high.size() && price_high!="0")
+    if(price_high.size()&&price_high!="0")
     {
         QString price_range="0-"+price_high;
         query.addQueryItem("priceRange",price_range.toUtf8());
@@ -310,7 +311,6 @@ void MainWindow::Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString c
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/vnd.amadeus+json");
     request.setRawHeader("Authorization", "Bearer "+amadeusKey.toUtf8());
     reply = manager.get(request);
-
     // Busy wait until the reply is ready
     while (!reply->isFinished()) {
         qApp->processEvents(); // Process events to prevent GUI freeze
@@ -452,6 +452,7 @@ void MainWindow::letsTravelClicked()
         hotelsCell *hotelWidget = new hotelsCell(&roomOffers[j],this);
         tabView->addHotelOffer(hotelWidget);
     }
+
     get_Tours_Activities(destCity.lat,destCity.lon);
     for(int k=0; k<activities.size() && k<10 ;k++)
     {
