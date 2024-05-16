@@ -17,7 +17,7 @@ TripTactics is a travel planning application that helps users organize their tri
 <img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/a92cec94-5c93-4fc9-891b-7446b920ee89" width="400" height="400">
 
 ## Functional Requirements:
-1-	The User should be able to specify : 
+### 1-	The User should be able to specify :   
     1-Origin City  
     2-Destination City  
     3-Start Date  
@@ -29,13 +29,13 @@ TripTactics is a travel planning application that helps users organize their tri
     9-Maximum Price for Hotels  
     10-Minimum Rating for Hotels  
     11-Number of Hotel Rooms  
-2-	The user should be able to Omit Flights planning or Omit Hotel Planning from the search results   
-3-	The User should be able to specify Maximum price for flights   
-4-	The User should be able to specify :  
+### 2-	The user should be able to Omit Flights planning or Omit Hotel Planning from the search results   
+### 3-	The User should be able to specify Maximum price for flights   
+### 4-	The User should be able to specify :  
     1-Maximum price for hotels   
     2-Minimum rating for hotels   
     3-Number of rooms required   
-5-	The User should be able to choose Extra amenities such as :   
+### 5-	The User should be able to choose Extra amenities such as :   
     1-Swimming pool   
     2-SPA  
     3-Fitness Centre   
@@ -43,11 +43,11 @@ TripTactics is a travel planning application that helps users organize their tri
     5-Mini Bar   
     6-Baby Sitting  
     7-…….  
-6-	The  User can use between EUR ,USD and EGP currencies  
-7-	Date Selection should be allowed for the one way trips and for the roundtrips   
-8-	When  user disables Hotel planning  , The hotel options will not be responding   
-9-	When user disable Flights planning , The Flight Options will not be responding   
-10-Data should be got using Rest APIs    
+### 6-	The  User can use between EUR ,USD and EGP currencies  
+### 7-	Date Selection should be allowed for the one way trips and for the roundtrips   
+### 8-	When  user disables Hotel planning  , The hotel options will not be responding   
+### 9-	When user disable Flights planning , The Flight Options will not be responding   
+### 10-Data should be got using Rest APIs    
 ## Non-Functional Requirements :
 1-Usability :
   -	The interface should be intuitive and every Entry point should have a text label to explain its significance
