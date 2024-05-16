@@ -230,7 +230,7 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
     QUrlQuery query;
     query.addQueryItem("latitude",latitude.toUtf8());
     query.addQueryItem("longitude",longitude.toUtf8());
-    query.addQueryItem("radius" , QString::number(10).toUtf8());
+    query.addQueryItem("radius" , QString::number(1).toUtf8());
 
     url.setQuery(query);
 
@@ -246,6 +246,7 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
     QByteArray data = reply->readAll();
     QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
     QJsonArray data_array = jsonDocument["data"].toArray();
+
     for(const auto &i : data_array)
     {
         QJsonObject entry = i.toObject();
@@ -451,6 +452,14 @@ void MainWindow::letsTravelClicked()
         hotelsCell *hotelWidget = new hotelsCell(&roomOffers[j],this);
         tabView->addHotelOffer(hotelWidget);
     }
+
+    get_Tours_Activities(destCity.lat,destCity.lon);
+    for(int k=0; k<activities.size() && k<10 ;k++)
+    {
+        activitiescell *activityWidget = new activitiescell(&activities[k],this);
+        tabView->addActivity(activityWidget);
+    }
+
 }
 /*end Omar Tamer*/
 
