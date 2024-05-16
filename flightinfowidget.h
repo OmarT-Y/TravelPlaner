@@ -14,8 +14,10 @@ class FlightInfoWidget : public QWidget
 public:
     explicit FlightInfoWidget(QString origin,QString dest,flight_offer* offer,QWidget *parent = nullptr);
     ~FlightInfoWidget();
-
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 private:
+    QString reservationLink;
     Ui::FlightInfoWidget *ui;
 };
 
