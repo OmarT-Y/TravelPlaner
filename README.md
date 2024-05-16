@@ -18,36 +18,36 @@ TripTactics is a travel planning application that helps users organize their tri
 
 ## Functional Requirements:
 1-	The User should be able to specify : 
-    1-Origin City
-    2-Destination City
-    3-Start Date
-    4-End Date
-    5-Number of Adult Travelers
-    6-Number of Child Travelers
-    7-Currency Selection
-    8-Maximum Price for Flights
-    9-Maximum Price for Hotels
-    10-Minimum Rating for Hotels
-    11-Number of Hotel Rooms
-2-	The user should be able to Omit Flights planning or Omit Hotel Planning from the search results 
-3-	The User should be able to specify Maximum price for flights 
-4-	The User should be able to specify :
-    1-Maximum price for hotels 
-    2-Minimum rating for hotels 
-    3-Number of rooms required 
-5-	The User should be able to choose Extra amenities such as : 
-    1-Swimming pool 
-    2-SPA
-    3-Fitness Centre 
-    4-parking
-    5-Mini Bar 
-    6-Baby Sitting
-    7-…….
-6-	The  User can use between EUR ,USD and EGP currencies
-7-	Date Selection should be allowed for the one way trips and for the roundtrips 
-8-	When  user disables Hotel planning  , The hotel options will not be responding 
-9-	When user disable Flights planning , The Flight Options will not be responding 
-10-Data should be got using Rest APIs  
+    1-Origin City  
+    2-Destination City  
+    3-Start Date  
+    4-End Date  
+    5-Number of Adult Travelers  
+    6-Number of Child Travelers  
+    7-Currency Selection  
+    8-Maximum Price for Flights  
+    9-Maximum Price for Hotels  
+    10-Minimum Rating for Hotels  
+    11-Number of Hotel Rooms  
+2-	The user should be able to Omit Flights planning or Omit Hotel Planning from the search results   
+3-	The User should be able to specify Maximum price for flights   
+4-	The User should be able to specify :  
+    1-Maximum price for hotels   
+    2-Minimum rating for hotels   
+    3-Number of rooms required   
+5-	The User should be able to choose Extra amenities such as :   
+    1-Swimming pool   
+    2-SPA  
+    3-Fitness Centre   
+    4-parking  
+    5-Mini Bar   
+    6-Baby Sitting  
+    7-…….  
+6-	The  User can use between EUR ,USD and EGP currencies  
+7-	Date Selection should be allowed for the one way trips and for the roundtrips   
+8-	When  user disables Hotel planning  , The hotel options will not be responding   
+9-	When user disable Flights planning , The Flight Options will not be responding   
+10-Data should be got using Rest APIs    
 ## Non-Functional Requirements :
 1-Usability :
   -	The interface should be intuitive and every Entry point should have a text label to explain its significance
