@@ -10,7 +10,7 @@
 
 #include "cityinfo.h"
 #include "hotelsearch.h"
-
+#include "tabviewinfo.h"
 #include "flight_search.h"
 #include "activities_tours.h"
 #include "travelinfo.h"
@@ -57,7 +57,7 @@ public:
     void Hotel_Search_API(int number_of_rooms ,int adultInRoom,QString checkIn,QString checkOut,QString currency,QString price_high );
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
-    void getCityInfo(CityInfo city);
+    CityInfoAll getCityInfo(CityInfo city);
 //void getHotelExtraInfo( int number_of_rooms , QString price_low,QString price_high ,QString currency);
     /*end Ziad Mohamed*/
 private slots:
@@ -67,7 +67,7 @@ private:
     QNetworkAccessManager manager;
     QNetworkReply *reply = nullptr;
     QString amadeusKey;
-
+    TabViewInfo* tabView =nullptr;
     std::vector<QString> cityHotelRes;
     std::vector <flight_offer> flight_offers;
     std::vector <activity> activities;
@@ -79,7 +79,8 @@ private:
     CityInfo destCity;
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
-    CityInfoAll CityFullinfo;
+    CityInfoAll originCityFullinfo;
+    CityInfoAll destCityFullinfo;
     /*end Ziad Mohamed*/
 };
 #endif // MAINWINDOW_H

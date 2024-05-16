@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->travelInfoWidget->searchButton,SIGNAL(clicked(bool)),this,SLOT(letsTravelClicked()));
     setObjectName("MainMenu");
     setStyleSheet("QWidget#MainMenu {border-image: url(:/new/prefix1/bg8);}");
+
 }
 void MainWindow::amadeusAuthKey()
 {
@@ -426,13 +427,18 @@ void MainWindow::letsTravelClicked()
     this->destCity = destCitySearchRes[destIndex];
 
     this->travelInfoWidget->deleteLater();
+    originCityFullinfo=getCityInfo(originCity);
+    destCityFullinfo=getCityInfo(destCity);
+    tabView = new TabViewInfo(&originCityFullinfo,&destCityFullinfo,this);
+    this->ui->mainLayout->addWidget(tabView);
 }
 /*end Omar Tamer*/
 
 
 /*Ziad Mohamed*/
-void MainWindow::getCityInfo(CityInfo city)
+CityInfoAll MainWindow::getCityInfo(CityInfo city)
 {
+    CityInfoAll CityFullinfo;
     CityFullinfo.countryCode=city.countryCode;
     CityFullinfo.cityCode=city.cityCode;
     CityFullinfo.cityName=city.cityName;
@@ -464,6 +470,7 @@ void MainWindow::getCityInfo(CityInfo city)
     {
        CityFullinfo.second_language_name=jsonDocument["languages"].toArray()[1].toObject()["name"].toString();
     }
+    return CityFullinfo;
 }
 MainWindow::~MainWindow()
 {

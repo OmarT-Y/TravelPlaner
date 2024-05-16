@@ -6,6 +6,7 @@ TravelInfo::TravelInfo(QWidget *parent)
     this->mainWidgetLayout = new QVBoxLayout(this);
     /*set welcome label*/
     QLabel *welcomeLabel = new QLabel("Welcome to TripTactics!",this);
+
     welcomeLabel->setAlignment(Qt::AlignCenter);
     QFont font = welcomeLabel->font();
     font.setPointSize(18);

@@ -15,6 +15,7 @@ SOURCES += \
     hotelsearch.cpp \
     main.cpp \
     mainwindow.cpp \
+    tabviewinfo.cpp \
     travelinfo.cpp
 
 HEADERS += \
@@ -25,12 +26,14 @@ HEADERS += \
     activities_tours.h \
     flight_search.h \
     mainwindow.h \
+    tabviewinfo.h \
     travelinfo.h
 
 FORMS += \
     amenitieswindow.ui \
     cityselectionwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    tabviewinfo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
