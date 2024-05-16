@@ -20,27 +20,27 @@ FlightInfoWidget::FlightInfoWidget(QString origin,QString dest,flight_offer* off
     font2.setBold(true);
     ui->bookingLimitLabel->setFont(font);
     //set the first trip
-    ui->trip1FromLabel->setText("From: "+origin+", At: "+offer->flights.first.departureDateTime);
-    ui->trip1ToLabel->setText("To: "+dest+", At: "+offer->flights.first.arrivalDateTime);
+    ui->trip2FromLabel->setText("From: "+origin+", At: "+offer->flights.first.departureDateTime);
+    ui->trip2ToLabel->setText("To: "+dest+", At: "+offer->flights.first.arrivalDateTime);
     if(offer->flights.first.numberOfStops)
-        ui->trip1StopsLabel->setText(QString::number(offer->flights.first.numberOfStops)+"Stops: "+QString::number(offer->flights.first.numberOfStops));
+        ui->trip2StopsLabel->setText("Stops: "+QString::number(offer->flights.first.numberOfStops));
     else
-        ui->trip1StopsLabel->setVisible(false);
+        ui->trip2StopsLabel->setVisible(false);
     //set the second trip
     if(offer->oneWay == false)
     {
-        ui->trip2FromLabel->setText("From: "+origin+", At: "+offer->flights.second.departureDateTime);
-        ui->trip2ToLabel->setText("To: "+dest+", At: "+offer->flights.second.arrivalDateTime);
+        ui->trip1FromLabel->setText("From: "+origin+", At: "+offer->flights.second.departureDateTime);
+        ui->trip1ToLabel->setText("To: "+dest+", At: "+offer->flights.second.arrivalDateTime);
         if(offer->flights.second.numberOfStops)
-            ui->trip2StopsLabel->setText("Stops: "+QString::number(offer->flights.second.numberOfStops));
+            ui->trip1StopsLabel->setText("Stops: "+QString::number(offer->flights.second.numberOfStops));
         else
-            ui->trip2StopsLabel->setVisible(false);
+            ui->trip1StopsLabel->setVisible(false);
     }
     else
     {
-        ui->trip2StopsLabel->setVisible(false);
-        ui->trip2ToLabel->setVisible(false);
-        ui->trip2FromLabel->setVisible(false);
+        ui->trip1StopsLabel->setVisible(false);
+        ui->trip1ToLabel->setVisible(false);
+        ui->trip1FromLabel->setVisible(false);
     }
     this->reservationLink="https://www.youtube.com/watch?v=Wqu22Kw1XG8";
 }

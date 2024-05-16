@@ -14,8 +14,6 @@ TabViewInfo::TabViewInfo(CityInfoAll* originCityFullInfo,CityInfoAll* destCityFu
     ui->originCurrencyLabel->setText("Currency: "+originCityFullInfo->currency_code + " ("+originCityFullInfo->currency_symbol+")");
     ui->originLangLabel->setText("Language: "+ originCityFullInfo->first_language_name );
 
-    QString imageUrl = originCityFullInfo->flag_pic;
-
     QNetworkAccessManager* m_netwManager = new QNetworkAccessManager(this);
     QUrl url(destCityFullInfo->flag_pic);
     QNetworkRequest request(url);
@@ -59,7 +57,21 @@ void TabViewInfo::addActivity(activitiescell* offer)
 {
     ui->activiteisLayout->addWidget(offer);
 }
+void TabViewInfo::hideFlight()
+{
+    ui->flightTab->setVisible(false);
+    ui->tabWidget->setTabVisible(0,false);
+}
+void TabViewInfo::hideHotel()
+{
+    ui->accomodationsTab->setVisible(false);
+    ui->tabWidget->setTabVisible(1,false);
+}
 TabViewInfo::~TabViewInfo()
 {
     delete ui;
+}
+void TabViewInfo::on_pushButton_clicked()
+{
+    emit resetHomeSig();
 }

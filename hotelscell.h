@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "hotelsearch.h"
+#include <QDesktopServices>
 namespace Ui {
 class hotelsCell;
 }
@@ -14,9 +15,10 @@ class hotelsCell : public QWidget
 public:
     explicit hotelsCell(HotelRoomOfferInfo *currentHotel,QWidget *parent = nullptr);
     ~hotelsCell();
-
+    QString link;
 private:
     Ui::hotelsCell *ui;
+    void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif // HOTELSCELL_H

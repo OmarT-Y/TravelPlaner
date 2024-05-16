@@ -23,6 +23,13 @@ public:
     void addFlightOffer(FlightInfoWidget* offer);
     void addHotelOffer(hotelsCell* offer);
     void addActivity(activitiescell* offer);
+    void hideFlight();
+    void hideHotel();
+    void setCallBackHomeReset(void (*resHome)(void));
+private slots:
+    void on_pushButton_clicked();
+signals:
+    void resetHomeSig();
 private:
     Ui::TabViewInfo *ui;
 };

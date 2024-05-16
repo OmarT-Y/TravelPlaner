@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "activities_tours.h"
 #include <QString>
+#include <QDesktopServices>
 namespace Ui {
 class activitiescell;
 }
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::activitiescell *ui;
+    void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif // ACTIVITIESCELL_H

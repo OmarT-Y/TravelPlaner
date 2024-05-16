@@ -20,10 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->travelInfoWidget = new TravelInfo();
     this->ui->mainLayout->addWidget(travelInfoWidget);
     amadeusAuthKey();
+    ui->loadingLabel->setVisible(false);
     connect(this->travelInfoWidget->searchButton,SIGNAL(clicked(bool)),this,SLOT(letsTravelClicked()));
     setObjectName("MainMenu");
     setStyleSheet("QWidget#MainMenu {border-image: url(:/new/prefix1/bg8);}");
-
 }
 void MainWindow::amadeusAuthKey()
 {
@@ -263,6 +263,7 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
             current_activity.pictures.push_back(entry["pictures"].toArray()[j].toString());
         }
         activities.push_back(current_activity);
+        if(activities.size()>19)break;
     }
 }
 /*Omar Tamer*/
@@ -375,8 +376,8 @@ void MainWindow::letsTravelClicked()
     tripDetails.originCity = travelInfoWidget->originCitySearch->text().trimmed();
     tripDetails.endDate = travelInfoWidget->endDate->date().toString("yyyy-MM-dd");
     tripDetails.startDate = travelInfoWidget->startDate->date().toString("yyyy-MM-dd");
-    tripDetails.flightEnable = travelInfoWidget->flightCheck->isChecked();
-    tripDetails.hotelEnable = travelInfoWidget->hotelCheck->isChecked();
+    tripDetails.flightEnable = !(travelInfoWidget->flightCheck->isChecked());
+    tripDetails.hotelEnable = !(travelInfoWidget->hotelCheck->isChecked());
     tripDetails.numOfAdult = travelInfoWidget->adultnumberspinBox->text();
     tripDetails.numOfChild = travelInfoWidget->childrennumberspinBox->text();
     tripDetails.flightMaxPrice = travelInfoWidget->flightmaxpriceSpinBox->text();
@@ -433,33 +434,59 @@ void MainWindow::letsTravelClicked()
 
     delete travelInfoWidget;
 
-
+    ui->loadingLabel->setText("Loading Origin and Destination Info");
+    ui->loadingLabel->setVisible(true);
     originCityFullinfo=getCityInfo(originCity);
     destCityFullinfo=getCityInfo(destCity);
     tabView = new TabViewInfo(&originCityFullinfo,&destCityFullinfo,this);
-    this->ui->mainLayout->addWidget(tabView);
-    flight_offer_search_API(originCity.cityCode,destCity.cityCode,tripDetails.startDate,tripDetails.numOfAdult.toInt(),tripDetails.numOfChild.toInt(),tripDetails.endDate);
-    for(int i =0;i<flight_offers.size();i++)
+    connect(tabView,SIGNAL(resetHomeSig()),this,SLOT(resetHome()));
+    if(tripDetails.flightEnable)
     {
-        FlightInfoWidget *flightWidget = new FlightInfoWidget(originCity.cityName,destCity.cityName,&flight_offers[i],this);
-        tabView->addFlightOffer(flightWidget);
+        ui->loadingLabel->setText("Loading Available Flights");
+        flight_offer_search_API(originCity.cityCode,destCity.cityCode,tripDetails.startDate,tripDetails.numOfAdult.toInt(),tripDetails.numOfChild.toInt(),tripDetails.endDate);
+        for(int i =0;i<flight_offers.size();i++)
+        {
+            FlightInfoWidget *flightWidget = new FlightInfoWidget(originCity.cityName,destCity.cityName,&flight_offers[i],this);
+            tabView->addFlightOffer(flightWidget);
+        }
+        flight_offers.clear();
+        flight_offers.shrink_to_fit();
     }
-    Hotel_List(destCity.cityCode,tripDetails.am_flag, tripDetails.hotelMinRating.toInt());
-    Hotel_Search_API(tripDetails.hotelNumOfRooms.toInt(),tripDetails.numOfAdult.toInt(),\
-                    tripDetails.startDate,tripDetails.endDate,tripDetails.currencyCode,tripDetails.hotelMaxPrice);
-    for(int j=0;j<roomOffers.size();j++)
+    else
     {
-        hotelsCell *hotelWidget = new hotelsCell(&roomOffers[j],this);
-        tabView->addHotelOffer(hotelWidget);
+        tabView->hideFlight();
     }
-
+    if(tripDetails.hotelEnable)
+    {
+        ui->loadingLabel->setText("Loading Available Accomodations");
+        Hotel_List(destCity.cityCode,tripDetails.am_flag, tripDetails.hotelMinRating.toInt());
+        Hotel_Search_API(tripDetails.hotelNumOfRooms.toInt(),tripDetails.numOfAdult.toInt(),\
+                                                                                             tripDetails.startDate,tripDetails.endDate,tripDetails.currencyCode,tripDetails.hotelMaxPrice);
+        for(int j=0;j<roomOffers.size();j++)
+        {
+            hotelsCell *hotelWidget = new hotelsCell(&roomOffers[j],this);
+            tabView->addHotelOffer(hotelWidget);
+        }
+        cityHotelRes.clear();
+        cityHotelRes.shrink_to_fit();
+        roomOffers.clear();
+        roomOffers.shrink_to_fit();
+    }
+    else
+    {
+        tabView->hideHotel();
+    }
+    ui->loadingLabel->setText("Loading Available Tours and Activities");
     get_Tours_Activities(destCity.lat,destCity.lon);
     for(int k=0; k<activities.size() && k<10 ;k++)
     {
         activitiescell *activityWidget = new activitiescell(&activities[k],this);
         tabView->addActivity(activityWidget);
     }
-
+    activities.clear();
+    activities.shrink_to_fit();
+    ui->loadingLabel->setVisible(false);
+    this->ui->mainLayout->addWidget(tabView);
 }
 /*end Omar Tamer*/
 
@@ -500,6 +527,25 @@ CityInfoAll MainWindow::getCityInfo(CityInfo city)
        CityFullinfo.second_language_name=jsonDocument["languages"].toArray()[1].toObject()["name"].toString();
     }
     return CityFullinfo;
+}
+void MainWindow::resetHome()
+{
+    delete this->tabView;
+    reply=nullptr;
+    tabView=nullptr;
+    cityHotelRes.clear();
+    cityHotelRes.shrink_to_fit();
+    flight_offers.clear();
+    flight_offers.shrink_to_fit();
+    activities.clear();
+    activities.shrink_to_fit();
+    roomOffers.clear();
+    roomOffers.shrink_to_fit();
+    ui->loadingLabel->setVisible(false);
+    this->travelInfoWidget = new TravelInfo();
+    this->ui->mainLayout->addWidget(travelInfoWidget);
+    amadeusAuthKey();
+    connect(this->travelInfoWidget->searchButton,SIGNAL(clicked(bool)),this,SLOT(letsTravelClicked()));
 }
 MainWindow::~MainWindow()
 {

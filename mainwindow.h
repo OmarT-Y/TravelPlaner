@@ -60,10 +60,12 @@ public:
     /*end Omar Tamer*/
     /*Ziad Mohamed*/
     CityInfoAll getCityInfo(CityInfo city);
+
 //void getHotelExtraInfo( int number_of_rooms , QString price_low,QString price_high ,QString currency);
     /*end Ziad Mohamed*/
 private slots:
     void letsTravelClicked();
+    void resetHome();
 private:
     Ui::MainWindow *ui;
     QNetworkAccessManager manager;

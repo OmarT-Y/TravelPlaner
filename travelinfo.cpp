@@ -20,7 +20,6 @@ TravelInfo::TravelInfo(QWidget *parent)
     font2.setBold(true);
     welcomeLabel2->setFont(font2);
     mainWidgetLayout->addWidget(welcomeLabel2);
-    // Your guide for an unforgettable journey
     QSpacerItem *mainlayoutSpacer2 = new QSpacerItem(0,30,QSizePolicy::Fixed,QSizePolicy::Fixed);
     mainWidgetLayout->addSpacerItem(mainlayoutSpacer2);
     /*city and date selection*/
@@ -54,8 +53,9 @@ TravelInfo::TravelInfo(QWidget *parent)
     QLabel *childrenNumberLabel = new QLabel("Child Travelers:",this);
     adultnumberspinBox=new QSpinBox();
     adultnumberspinBox->setMaximum(9);
+    adultnumberspinBox->setMinimum(1);
     childrennumberspinBox=new QSpinBox();
-    childrennumberspinBox->setMaximum(9);
+    childrennumberspinBox->setMaximum(8);
     formLayout1->addRow(adultNumberLabel,adultnumberspinBox);
     formLayout2->addRow(childrenNumberLabel,childrennumberspinBox);
 
@@ -109,6 +109,7 @@ TravelInfo::TravelInfo(QWidget *parent)
     minimumRatingSpinBox->setMaximum(5);
     numberofRoomsSpinBox = new QSpinBox(this);
     numberofRoomsSpinBox->setMaximum(9);
+    numberofRoomsSpinBox->setMinimum(1);
     formLayout2->addRow(minimumratingLabel,minimumRatingSpinBox);
     formLayout2->addRow(numberofRoomsLabel,numberofRoomsSpinBox);
     searchButton = new QPushButton("Let's Travel!",this);
