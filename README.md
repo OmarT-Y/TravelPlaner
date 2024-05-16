@@ -11,6 +11,7 @@ TripTactics is a travel planning application that helps users organize their tri
 
 ## Getting Started
 ## Screenshots
-![image](https://github.com/OmarT-Y/TravelPlaner/assets/73003302/e2cc33d8-81e8-4eb2-9d3d-63cc8a9ace8e)
+<img src="https://github.com/OmarT-Y/TravelPlaner/assets/73003302/e2cc33d8-81e8-4eb2-9d3d-63cc8a9ace8e" width="200" height="200">
+
 ![image](https://github.com/OmarT-Y/TravelPlaner/assets/73003302/be4906d0-ab2d-4f4e-bec6-11ecc6ad5c85)
 
