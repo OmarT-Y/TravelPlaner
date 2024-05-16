@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "activities_tours.h"
+#include <QString>
 namespace Ui {
 class activitiescell;
 }
@@ -14,6 +15,7 @@ class activitiescell : public QWidget
 public:
     explicit activitiescell(activity *currentActivity,QWidget *parent = nullptr);
     ~activitiescell();
+    QString link;
 
 private:
     Ui::activitiescell *ui;

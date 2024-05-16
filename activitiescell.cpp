@@ -6,7 +6,8 @@ activitiescell::activitiescell(activity* currentActivity,QWidget *parent)
     , ui(new Ui::activitiescell)
 {
     ui->setupUi(this);
-    ui->descriptionLabel->setMaximumWidth(500);
+    ui->textEdit->setMaximumWidth(530);
+    ui->textEdit->setReadOnly(true);
     if(currentActivity->price.size())
     {
         ui->namePriceLabel->setText(currentActivity->name +", Price: "+currentActivity->price+ " "+currentActivity->currency);
@@ -18,11 +19,11 @@ activitiescell::activitiescell(activity* currentActivity,QWidget *parent)
 
     if(currentActivity->description.size())
     {
-        ui->descriptionLabel->setText(currentActivity->description);
+        ui->textEdit->setText(currentActivity->description);
     }
     else
     {
-        ui->descriptionLabel->setVisible(false);
+        ui->textEdit->setVisible(false);
     }
 
     QFont font = ui->namePriceLabel->font();
@@ -41,17 +42,17 @@ activitiescell::activitiescell(activity* currentActivity,QWidget *parent)
     {
         ui->hoursLabel->setVisible(false);
     }
-    if(currentActivity->booking_link.size())
-    {
-        ui->bookingLinkLabel->setText(currentActivity->booking_link);
-        ui->bookingLinkLabel->setTextFormat(Qt::RichText);
-        ui->bookingLinkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-        ui->bookingLinkLabel->setOpenExternalLinks(true);
-    }
-    else
-    {
-        ui->bookingLinkLabel->setVisible(false);
-    }
+    // if(currentActivity->booking_link.size())
+    // {
+    //     ui->bookingLinkLabel->setText(currentActivity->booking_link);
+    //     ui->bookingLinkLabel->setTextFormat(Qt::RichText);
+    //     ui->bookingLinkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    //     ui->bookingLinkLabel->setOpenExternalLinks(true);
+    // }
+    // else
+    // {
+    //     ui->bookingLinkLabel->setVisible(false);
+    // }
 
 }
 

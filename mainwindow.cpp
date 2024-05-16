@@ -245,6 +245,7 @@ void MainWindow::get_Tours_Activities(QString latitude , QString longitude)
     QByteArray data = reply->readAll();
     QJsonDocument jsonDocument =QJsonDocument::fromJson(data);
     QJsonArray data_array = jsonDocument["data"].toArray();
+
     for(const auto &i : data_array)
     {
         QJsonObject entry = i.toObject();
@@ -452,7 +453,7 @@ void MainWindow::letsTravelClicked()
         tabView->addHotelOffer(hotelWidget);
     }
     get_Tours_Activities(destCity.lat,destCity.lon);
-    for(int k=0;k<activities.size() && k<10 ;k++)
+    for(int k=0; k<activities.size() && k<10 ;k++)
     {
         activitiescell *activityWidget = new activitiescell(&activities[k],this);
         tabView->addActivity(activityWidget);
