@@ -1,8 +1,11 @@
 #ifndef TABVIEWINFO_H
 #define TABVIEWINFO_H
 #include "cityinfo.h"
+#include <QImage>
 #include <QWidget>
-
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QPixmap>
 namespace Ui {
 class TabViewInfo;
 }

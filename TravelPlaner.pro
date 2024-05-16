@@ -12,6 +12,7 @@ SOURCES += \
     amenitieswindow.cpp \
     cityinfo.cpp \
     cityselectionwindow.cpp \
+    hotelscell.cpp \
     hotelsearch.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     amenitieswindow.h \
     cityinfo.h \
     cityselectionwindow.h \
+    hotelscell.h \
     hotelsearch.h \
     activities_tours.h \
     flight_search.h \
@@ -32,6 +34,7 @@ HEADERS += \
 FORMS += \
     amenitieswindow.ui \
     cityselectionwindow.ui \
+    hotelscell.ui \
     mainwindow.ui \
     tabviewinfo.ui
 
